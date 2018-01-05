@@ -115,7 +115,7 @@ pub fn find_best_using(tag: &Tag) -> Result<PathBuf, String> {
 ///
 /// This should be the embedded Python library bundled with PythonUp, not one
 /// of the user's Python distributions.
-pub fn find_of_snafu() -> Result<PathBuf, String> {
+pub fn find_of_pythonup() -> Result<PathBuf, String> {
     let key_path = "Software\\uranusjr\\SNAFU";
 
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);

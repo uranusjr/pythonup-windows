@@ -6,7 +6,7 @@
 use std::path::PathBuf;
 use std::process::{abort, exit};
 
-use super::pythons::find_of_snafu;
+use super::pythons::find_of_pythonup;
 use super::procs::{setup, run, run_and_end};
 use super::shims::Shim;
 use super::tags::Tag;
@@ -41,7 +41,7 @@ pub fn pymod_and_link(find_python: fn(&Tag) -> Result<PathBuf, String>) {
 
     // TODO: Only relink when needed. How does Pyenv do this?;
     run_and_end(
-        &find_of_snafu().unwrap_or_else(print_and_abort),
+        &find_of_pythonup().unwrap_or_else(print_and_abort),
         &vec!["-m", "pythonup", "link", "--all", "--overwrite=smart"],
         false,
     );
