@@ -2,9 +2,9 @@ import contextlib
 
 import click
 
-from snafu import metadata, versions
-from snafu.operations.common import get_active_names
-from snafu.operations.link import activate
+from pythonup import metadata, versions
+from pythonup.operations.common import get_active_names
+from pythonup.operations.link import activate
 
 
 def get_version_or_none(name):

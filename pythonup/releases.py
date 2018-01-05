@@ -8,10 +8,15 @@ import packaging.version
 import requests
 
 
+GITHUB_API_TOKEN_KEY = 'PYTHONUP_GITHUB_API_TOKEN'
+
+
 def get_request_headers():
-    token = os.environ.get('SNAFU_GITHUB_API_TOKEN')
+    token = os.environ.get(GITHUB_API_TOKEN_KEY)
     if not token:
-        warnings.warn('SNAFU_GITHUB_API_TOKEN environment variable not set.')
+        warnings.warn('{} environment variable not set.'.format(
+            GITHUB_API_TOKEN_KEY,
+        ))
         return None
     return {'Authorazation': 'token {}'.format(token)}
 
@@ -54,7 +59,7 @@ def parse_asset_list(data_list):
 
 
 ASSET_NAME_RE = re.compile(r'''
-    ^snafu\-setup
+    ^pythonup\-setup
     \-
     (?P<arch>\w+)   # amd64 or win32
     \-.+            # version
@@ -89,7 +94,7 @@ class ReleaseUpToDate(ValueError):
 
 
 def get_releases():
-    response = get('/repos/uranusjr/snafu/releases')
+    response = get('/repos/uranusjr/pythonup/releases')
     return [Release.parse(data) for data in response.json()]
 
 

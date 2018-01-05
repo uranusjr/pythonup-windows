@@ -6,7 +6,7 @@ import shutil
 
 import click
 
-from snafu import configs, metadata
+from .. import configs, metadata
 
 from .common import (
     check_installation, get_active_names, get_version, version_command,
@@ -101,9 +101,9 @@ def activate(versions, *, overwrite=Overwrite.yes,
 
     using_scripts = set()
 
-    # TODO: Distinguish between `snafu use` and automatic hook after shimmed
-    # pip execution. The latter should only write scripts that actually chaged,
-    # or at least should only log those writes (and overwrite others silently).
+    # TODO: Distinguish between `use` and automatic hook after shimmed pip
+    # execution. The latter should only write scripts that actually chaged, or
+    # at least should only log those writes (and overwrite others silently).
     if source_scripts or shims or versions:
         if not quiet:
             click.echo('Publishing scripts....')
@@ -177,7 +177,7 @@ def update_active_versions(*, remove=frozenset()):
 @version_command(plural=True)
 def use(ctx, versions, add):
     if add is None and not versions:
-        # Bare "snafu use": Display active versions.
+        # Bare "use": Display active versions.
         names = get_active_names()
         if names:
             click.echo(' '.join(names))
@@ -232,7 +232,7 @@ def link(ctx, command, link_all, overwrite):
         click.echo('Not using any versions.', err=True)
         if not link_all:
             click.echo(
-                'HINT: Use "snafu use" to use a version first.', err=True,
+                'HINT: Use "pythonup use" to use a version first.', err=True,
             )
             ctx.exit(1)
 

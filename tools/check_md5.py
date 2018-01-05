@@ -53,7 +53,7 @@ def main():
         raise ValueError('no versions provided')
     for v in sys.argv[1:]:
         path = pathlib.Path(__file__).parent.parent.joinpath(
-            'snafu', 'versions', '{}.json'.format(v),
+            'pythonup', 'versions', '{}.json'.format(v),
         )
         with path.open() as f:
             info = json.load(f)

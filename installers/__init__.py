@@ -59,7 +59,7 @@ def get_kb_msu_url(architecture, wver, warc):
 
 
 def get_snafu_version():
-    with ROOT.parent.joinpath('snafu', '__init__.py').open() as f:
+    with ROOT.parent.joinpath('pythonup', '__init__.py').open() as f:
         for line in f:
             if line.startswith('__version__'):
                 vs = line[len('__version__ = '):]
@@ -76,7 +76,7 @@ def get_latest_python_name():
 
     definitions = [
         load_definition(p)
-        for p in ROOT.parent.joinpath('snafu', 'versions').iterdir()
+        for p in ROOT.parent.joinpath('pythonup', 'versions').iterdir()
         if p.suffix == '.json'
     ]
 
@@ -177,15 +177,15 @@ def build_lib_python(libdir, arch):
     with zipfile.ZipFile(str(get_embed_bundle(arch))) as f:
         f.extractall(str(pythondir))
 
-    # Copy SNAFU.
-    print('Populate SNAFU.')
+    # Copy PythonUp.
+    print('Populate PythonUp.')
     shutil.copytree(
-        str(ROOT.parent.joinpath('snafu')),
-        str(pythondir.joinpath('snafu')),
+        str(ROOT.parent.joinpath('pythonup')),
+        str(pythondir.joinpath('pythonup')),
     )
 
-    # Write SNAFU configurations.
-    with pythondir.joinpath('snafu', 'installation.json').open('w') as f:
+    # Write runtime configurations.
+    with pythondir.joinpath('pythonup', 'installation.json').open('w') as f:
         json.dump({
             'cmd_dir': '..\\..\\..\\cmd',
             'scripts_dir': '..\\..\\..\\scripts',
@@ -268,7 +268,7 @@ def build_lib(container, arch):
 def build_cmd(container):
     cmddir = container.joinpath('cmd')
     cmddir.mkdir()
-    print('Copying snafu shim.')
+    print('Copying command shim.')
     shutil.copy2(
         str(SHIMSDIR.joinpath('snafu', 'target', 'release', 'snafu.exe')),
         str(cmddir.joinpath('snafu.exe')),
@@ -276,7 +276,7 @@ def build_cmd(container):
 
 
 def build_files(arch):
-    container = ROOT.joinpath('snafu')
+    container = ROOT.joinpath('pythonup')
     if container.exists():
         shutil.rmtree(str(container))
     container.mkdir()
@@ -291,14 +291,14 @@ def build_installer(outpath):
     subprocess.check_call([
         'makensis',
         '/DPYTHONVERSION={}'.format(get_latest_python_name()),
-        str(ROOT.joinpath('snafu.nsi')),
+        str(ROOT.joinpath('setup.nsi')),
     ], shell=True)
-    print('snafu-setup.exe -> {}'.format(outpath))
-    shutil.move(str(ROOT.joinpath('snafu-setup.exe')), str(outpath))
+    print('pythonup-setup.exe -> {}'.format(outpath))
+    shutil.move(str(ROOT.joinpath('pythonup-setup.exe')), str(outpath))
 
 
 def cleanup():
-    container = ROOT.joinpath('snafu')
+    container = ROOT.joinpath('pythonup')
     if container.exists():
         shutil.rmtree(str(container))
 
@@ -327,7 +327,7 @@ def build(ctx, version=None, clean=True):
     else:
         check_version(version)
 
-    out = 'snafu-setup-{}-{}.exe'.format(arch, version.strip())
+    out = 'pythonup-setup-{}-{}.exe'.format(arch, version.strip())
     outpath = pathlib.Path(out)
     if not outpath.is_absolute():
         outpath = ROOT.joinpath(outpath)

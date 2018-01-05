@@ -13,7 +13,7 @@
 !insertmacro MUI_LANGUAGE "English"
 
 
-!define NAME 'SNAFU Python Manager'
+!define NAME 'PythonUp: The Python Runtime Manager'
 
 !define UNINSTALL_REGKEY \
     'Software\Microsoft\Windows\CurrentVersion\Uninstall\SNAFU'
@@ -33,7 +33,7 @@ ShowInstDetails hide
 ManifestSupportedOS all
 
 Name "${NAME}"
-OutFile "snafu-setup.exe"
+OutFile "pythonup-setup.exe"
 InstallDir "$LOCALAPPDATA\Programs\SNAFU"
 
 Var InstallsPythonCheckbox
@@ -41,7 +41,7 @@ Var InstallsPython
 
 Function Welcome
     ${IfNot} ${AtLeastWinVista}
-        MessageBox MB_OK "SNAFU only supports Windows Vista or above."
+        MessageBox MB_OK "PythonUp only supports Windows Vista or above."
         Quit
     ${EndIf}
 
@@ -80,7 +80,7 @@ Function InstallCRTUpdate
         $\"$INSTDIR\lib\setup\Windows$R0-${KBCODE}-$R1.msu$\""
 FunctionEnd
 
-Section "SNAFU Python Manager"
+Section "${NAME}"
     # Clean up previous installation to prevent script name conflicts (e.g.
     # old package is used instead of new module), and clean up old files.
     Rmdir /r "$INSTDIR"
@@ -88,7 +88,7 @@ Section "SNAFU Python Manager"
     CreateDirectory "$INSTDIR"
     SetOutPath "$INSTDIR"
 
-    File /r 'snafu\*'
+    File /r 'pythonup\*'
     CreateDirectory "$INSTDIR\scripts"
 
     # Ensure appropriate Windows Update for CRT is installed.
@@ -113,11 +113,11 @@ Section "SNAFU Python Manager"
     nsExec::ExecToLog "$\"$INSTDIR\lib\python\python.exe$\" \
         $\"$INSTDIR\lib\setup\activation.py$\""
 
-    # Run SNAFU to install Python (if told to).
+    # Use installation to install Python (if told to).
     ${If} $InstallsPython == ${BST_CHECKED}
         DetailPrint "Installing Python ${PYTHONVERSION}..."
         nsExec::ExecToLog "$\"$INSTDIR\lib\python\python.exe$\" \
-            -m snafu install ${PYTHONVERSION}"
+            -m pythonup install ${PYTHONVERSION}"
     ${EndIf}
 
     # Copy DLL required by Rust executables.

@@ -3,7 +3,7 @@ import uuid
 
 import pytest
 
-import snafu.installations
+import pythonup.installations
 
 
 @pytest.fixture
@@ -13,7 +13,7 @@ def instpath(tmpdir):
 
 @pytest.fixture
 def installation(instpath):
-    return snafu.installations.Installation(instpath)
+    return pythonup.installations.Installation(instpath)
 
 
 def test_scripts_dir(instpath, installation):

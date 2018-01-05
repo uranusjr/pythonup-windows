@@ -2,7 +2,7 @@ import functools
 
 import click
 
-from snafu import metadata, versions
+from .. import metadata, versions
 
 
 def check_installation(version, *, installed=True, on_exit=None):

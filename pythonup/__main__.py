@@ -1,21 +1,21 @@
 import click
 
 
-class SnafuGroup(click.Group):
-    """Force command name to 'snafu'.
+class PythonUpGroup(click.Group):
+    """Force command name to 'pythonup'.
     """
     def make_context(self, info_name, *args, **kwargs):
-        return super().make_context('snafu', *args, **kwargs)
+        return super().make_context('pythonup', *args, **kwargs)
 
 
-@click.group(cls=SnafuGroup, invoke_without_command=True)
+@click.group(cls=PythonUpGroup, invoke_without_command=True)
 @click.option('--version', is_flag=True, help='Print version and exit.')
 @click.pass_context
 def cli(ctx, version):
     if ctx.invoked_subcommand is None:
         if version:
             from . import __version__
-            click.echo('SNAFU {}'.format(__version__))
+            click.echo('PythonUp (Windows) {}'.format(__version__))
         else:
             click.echo(ctx.get_help(), color=ctx.color)
             ctx.exit(1)

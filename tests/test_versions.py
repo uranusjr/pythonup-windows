@@ -4,10 +4,10 @@ import re
 
 import pytest
 
-import snafu.versions
+import pythonup.versions
 
 
-version_paths = list(snafu.versions.VERSIONS_DIR_PATH.iterdir())
+version_paths = list(pythonup.versions.VERSIONS_DIR_PATH.iterdir())
 version_names = [p.stem for p in version_paths]
 
 
@@ -21,7 +21,7 @@ def test_version_definitions(path):
         data = json.load(f)
 
     schema = data.pop('type')
-    possible_types = snafu.versions.InstallerType.__members__
+    possible_types = pythonup.versions.InstallerType.__members__
     assert schema in possible_types
 
     assert isinstance(data.pop('version_info'), list)
@@ -39,8 +39,8 @@ def test_version_definitions(path):
 
 
 def test_get_version_cpython_msi():
-    version = snafu.versions.get_version('3.4', force_32=False)
-    assert version == snafu.versions.CPythonMSIVersion(
+    version = pythonup.versions.get_version('3.4', force_32=False)
+    assert version == pythonup.versions.CPythonMSIVersion(
         name='3.4',
         url='https://www.python.org/ftp/python/3.4.4/python-3.4.4.amd64.msi',
         md5_sum='963f67116935447fad73e09cc561c713',
@@ -49,8 +49,8 @@ def test_get_version_cpython_msi():
 
 
 def test_get_version_cpython_msi_switch():
-    version = snafu.versions.get_version('3.4', force_32=True)
-    assert version == snafu.versions.CPythonMSIVersion(
+    version = pythonup.versions.get_version('3.4', force_32=True)
+    assert version == pythonup.versions.CPythonMSIVersion(
         name='3.4',
         url='https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi',
         md5_sum='e96268f7042d2a3d14f7e23b2535738b',
@@ -59,8 +59,8 @@ def test_get_version_cpython_msi_switch():
 
 
 def test_get_version_cpython():
-    version = snafu.versions.get_version('3.5', force_32=False)
-    assert version == snafu.versions.CPythonVersion(
+    version = pythonup.versions.get_version('3.5', force_32=False)
+    assert version == pythonup.versions.CPythonVersion(
         name='3.5',
         url='https://www.python.org/ftp/python/3.5.4/python-3.5.4-amd64.exe',
         md5_sum='4276742a4a75a8d07260f13fe956eec4',
@@ -69,8 +69,8 @@ def test_get_version_cpython():
 
 
 def test_get_version_cpython_switch():
-    version = snafu.versions.get_version('3.5', force_32=True)
-    assert version == snafu.versions.CPythonVersion(
+    version = pythonup.versions.get_version('3.5', force_32=True)
+    assert version == pythonup.versions.CPythonVersion(
         name='3.5-32',
         url='https://www.python.org/ftp/python/3.5.4/python-3.5.4.exe',
         md5_sum='9693575358f41f452d03fd33714f223f',
@@ -80,8 +80,8 @@ def test_get_version_cpython_switch():
 
 
 def test_get_version_not_found():
-    with pytest.raises(snafu.versions.VersionNotFoundError) as ctx:
-        snafu.versions.get_version('2.8', force_32=False)
+    with pytest.raises(pythonup.versions.VersionNotFoundError) as ctx:
+        pythonup.versions.get_version('2.8', force_32=False)
     assert str(ctx.value) == '2.8'
 
 
@@ -92,7 +92,7 @@ def test_get_version_not_found():
     ('3.4', True, 'Python 3.4'),
 ])
 def test_str(name, force_32, result):
-    version = snafu.versions.get_version(name, force_32=force_32)
+    version = pythonup.versions.get_version(name, force_32=force_32)
     assert str(version) == result
 
 
@@ -103,10 +103,10 @@ def test_str(name, force_32, result):
     ('2.7', True, 'python2.exe'),
 ])
 def test_python_major_command(mocker, name, force_32, cmd):
-    mocker.patch.object(snafu.versions, 'configs', **{
+    mocker.patch.object(pythonup.versions, 'configs', **{
         'get_scripts_dir_path.return_value': pathlib.Path(),
     })
-    version = snafu.versions.get_version(name, force_32=force_32)
+    version = pythonup.versions.get_version(name, force_32=force_32)
     assert version.python_major_command == pathlib.Path(cmd)
 
 
@@ -117,7 +117,7 @@ def test_python_major_command(mocker, name, force_32, cmd):
     ('3.4', True, '3.4'),
 ])
 def test_arch_free_name(name, force_32, result):
-    version = snafu.versions.get_version(name, force_32=force_32)
+    version = pythonup.versions.get_version(name, force_32=force_32)
     assert version.arch_free_name == result
 
 
@@ -129,14 +129,14 @@ def test_arch_free_name(name, force_32, result):
     ('3.4', True, {'3.4'}),
 ])
 def test_script_version_names(name, force_32, result):
-    version = snafu.versions.get_version(name, force_32=force_32)
+    version = pythonup.versions.get_version(name, force_32=force_32)
     assert version.script_version_names == result
 
 
 def test_is_installed(tmpdir, mocker):
-    mock_metadata = mocker.patch.object(snafu.versions, 'metadata', **{
+    mock_metadata = mocker.patch.object(pythonup.versions, 'metadata', **{
         'get_install_path.return_value': pathlib.Path(str(tmpdir)),
     })
-    version = snafu.versions.get_version('3.6', force_32=False)
+    version = pythonup.versions.get_version('3.6', force_32=False)
     assert version.is_installed()
     mock_metadata.get_install_path.assert_called_once_with('3.6')

@@ -3,7 +3,7 @@ import shutil
 
 import click
 
-from snafu import utils
+from .. import utils
 
 from .common import version_command
 

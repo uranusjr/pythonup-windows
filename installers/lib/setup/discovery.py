@@ -2,8 +2,8 @@ import contextlib
 
 import click
 
-from snafu.operations.link import link_commands
-from snafu.operations.versions import get_versions
+from pythonup.operations.link import link_commands
+from pythonup.operations.versions import get_versions
 
 
 @click.command()

@@ -1,24 +1,23 @@
 import ctypes
 import pathlib
-import time
 import warnings
 
 import click
 
-from snafu import __version__
-from snafu import metadata, releases, termui, utils
+from .. import __version__
+from .. import metadata, releases, termui, utils
 
 
 def install_self_upgrade(path):
     click.echo('Installing upgrade from {}'.format(path))
-    click.echo('SNAFU will terminate now to let the installer run.')
+    click.echo('PythonUp will terminate now to let the installer run.')
     click.echo('Come back after the installation finishes. See ya later!')
 
-    # SNAFU's installer requests elevation, so subprocess won't work, and we
-    # need some Win32 API magic here. (Notice we use 'open', not 'runas'. The
-    # installer requests elevation on its own; we don't do that for it.)
-    # The process launched is in a detached state so SNAFU can end here,
-    # releasing files to let the installer override.
+    # The PythonUp installer requests elevation, so subprocess won't work, and
+    # we need some Win32 API magic here. (Notice we use 'open', not 'runas';
+    # the installer requests elevation on its own; we don't need to do that.)
+    # Launched process is in a detached state so the command process ends here,
+    # releasing files for the installer to overwrite.
     instance = ctypes.windll.shell32.ShellExecuteW(
         None, 'open', str(path), '', None, 1,
     )
@@ -31,9 +30,8 @@ def install_self_upgrade(path):
         ])
         click.echo(message, err=True)
         click.get_current_context().exit(1)
-
-    # Let the user read the message and give the above call some time to run.
-    time.sleep(1)
+    else:
+        click.get_current_context().exit(0)
 
 
 def self_upgrade(*, installer, pre):
