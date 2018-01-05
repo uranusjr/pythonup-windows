@@ -8,7 +8,7 @@ winapi = { version = "0.3.2", features = ["consoleapi", "jobapi2", "wincon"] }
 winreg = "0.5.0"
 
 [[bin]]
-name = "snafu"
+name = "pythonup"
 path = "src/main.rs"
 
 [lib]
