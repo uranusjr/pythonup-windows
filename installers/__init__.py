@@ -270,8 +270,8 @@ def build_cmd(container):
     cmddir.mkdir()
     print('Copying command shim.')
     shutil.copy2(
-        str(SHIMSDIR.joinpath('snafu', 'target', 'release', 'snafu.exe')),
-        str(cmddir.joinpath('snafu.exe')),
+        str(SHIMSDIR.joinpath('snafu', 'target', 'release', 'pythonup.exe')),
+        str(cmddir.joinpath('pythonup.exe')),
     )
 
 
