@@ -1,35 +1,41 @@
-==============================================
-SNAFU: Python Distribution Manager for Windows
-==============================================
+===============================================
+PythonUp — The Python Runtime Manager (Windows)
+===============================================
 
-.. image:: https://ci.appveyor.com/api/projects/status/jjix3jifn79maf8q?svg=true&branch=master
-    :target: https://ci.appveyor.com/project/uranusjr/snafu
+.. image:: https://ci.appveyor.com/api/projects/status/7fdfpbvu2roawg23?svg=true&branch=master
+    :target: https://ci.appveyor.com/project/uranusjr/pythonup-windows
     :alt: Build status
 
-.. image:: https://readthedocs.org/projects/snafu/badge/?version=latest
-    :target: https://snafu.readthedocs.io/en/latest/
+.. image:: https://readthedocs.org/projects/pythonup-windows/badge/?version=latest
+    :target: https://pythonup-windows.readthedocs.io/en/latest/
     :alt: Documentation Status
 
-SNAFU is a Python distribution manager for Windows. It helps you download,
-configure, install, and manage Python installations, [#]_ and provides
-utilities that can be integrated into your Python-related development
-workflows.
+PythonUp helps your download, configure, install, and manage Python runtimes.
+It also provides utilities that can be integrated into your Python-related
+development workflows. This is the Windows version.
 
-.. [#] Only CPython distributions from `python.org`_ at the moment.
+.. highlights::
 
-.. _`python.org`: https://python.org
+    macOS user? Check out `PythonUp for macOS`_.
+
+.. _`PythonUp for macOS`: https://github.com/uranusjr/pythonup-macos
+
+
+Distribution
+============
+
+PythonUp for Windows is officially distributed on GitHub. Download installers
+from `Releases <https://github.com/uranusjr/pythonup-windows/releases>`_ and
+run it. After installation, a ``pythonup`` command will be available in
+newly-opened command prompts.
 
 
 Quick Start
 ===========
 
-Find an installer in `Releases <https://github.com/uranusjr/snafu/releases>`_.
-Download and install to get a ``snafu`` command in a newly-opened command
-prompt.
-
 Install Python 3.6::
 
-    $ snafu install 3.6
+    $ pythonup install 3.6
 
 Run Python::
 
@@ -46,17 +52,17 @@ And use it immediately::
 
 Install Python 3.5 (32-bit)::
 
-    $ snafu install 3.5-32
+    $ pythonup install 3.5-32
 
 Switch to a specific version::
 
-    $ snafu use 3.5-32
+    $ pythonup use 3.5-32
     $ python3 --version
     Python 3.5.4
 
 Switch back to 3.6::
 
-    $ snafu use 3.6
+    $ pythonup use 3.6
     $ python3 --version
     Python 3.6.4
     $ python3.5 --version
@@ -64,14 +70,14 @@ Switch back to 3.6::
 
 Uninstall Python::
 
-    $ snafu uninstall 3.5-32
+    $ pythonup uninstall 3.5-32
 
-Use ``--help`` to find more about SNAFU, or a specific command::
+Use ``--help`` to find more::
 
-    $ snafu --help
-    $ snafu install --help
+    $ pythonup --help
+    $ pythonup install --help
 
-Or read the `Documentation <https://snafu.readthedocs.io>`_.
+Or read the `Documentation <https://pythonup-windows.readthedocs.io>`_.
 
 Now you’re ready to use CPython on Windows like a first-class citizen, and
 ignore people telling you to get a Mac.
