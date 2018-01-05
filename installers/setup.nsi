@@ -124,7 +124,7 @@ Section "${NAME}"
     # We just use whatever Python provides, for convinience's sake.
     CopyFiles "$INSTDIR\lib\python\${VCRUNTIME}" "$INSTDIR\cmd"
 
-    # Write SNAFU install information.
+    # Write install information.
     WriteRegStr HKCU "Software\\uranusjr\\SNAFU" "InstallPath" "$INSTDIR"
 
     # Write uninstaller and register it to Windows.

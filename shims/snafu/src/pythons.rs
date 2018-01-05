@@ -111,10 +111,10 @@ pub fn find_best_using(tag: &Tag) -> Result<PathBuf, String> {
     Err(format!("failed to find used Python for {}", tag))
 }
 
-/// Find the Python SNAFU is distributed with.
+/// Find the Python PythonUp is distributed with.
 ///
-/// This should be the embedded Python library bundled with SNAFU, not one of
-/// the user's Python distributions.
+/// This should be the embedded Python library bundled with PythonUp, not one
+/// of the user's Python distributions.
 pub fn find_of_snafu() -> Result<PathBuf, String> {
     let key_path = "Software\\uranusjr\\SNAFU";
 
