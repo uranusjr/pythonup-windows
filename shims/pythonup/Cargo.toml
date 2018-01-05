@@ -1,5 +1,5 @@
 [package]
-name = "snafu"
+name = "pythonup"
 version = "0.1.0"
 authors = ["Tzu-ping Chung <uranusjr@gmail.com>"]
 
@@ -7,10 +7,6 @@ authors = ["Tzu-ping Chung <uranusjr@gmail.com>"]
 winapi = { version = "0.3.2", features = ["consoleapi", "jobapi2", "wincon"] }
 winreg = "0.5.0"
 
-[[bin]]
-name = "pythonup"
-path = "src/main.rs"
-
 [lib]
-name = "snafu"
+name = "pythonup"
 path = "src/lib.rs"

@@ -1,10 +1,16 @@
+[workspace]
+
 [package]
-name = "snafu-shims"
+name = "shims"
 version = "0.1.0"
 authors = ["Tzu-ping Chung <uranusjr@gmail.com>"]
 
 [dependencies]
-snafu = { path = "../snafu" }
+pythonup = { path = "pythonup" }
+
+[[bin]]
+name = "pythonup"
+path = "src/pythonup.rs"
 
 [[bin]]
 name = "python-command"

@@ -1,5 +1,5 @@
 [[package]]
-name = "snafu"
+name = "pythonup"
 version = "0.1.0"
 dependencies = [
  "winapi 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -7,10 +7,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "snafu-shims"
+name = "shims"
 version = "0.1.0"
 dependencies = [
- "snafu 0.1.0",
+ "pythonup 0.1.0",
 ]
 
 [[package]]
