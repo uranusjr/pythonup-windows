@@ -38,20 +38,20 @@ def set_path_values(values, vtype):
     print('SET PATH={}'.format(joined_value))
 
 
-def add_snafu_paths(instdir):
+def add_paths(instdir):
     old_paths, vtype = get_path_values()
-    snafu_paths = get_snafu_path_values(instdir)
+    paths = get_paths_to_add(instdir)
 
     path_index_m = collections.OrderedDict(zip(old_paths, itertools.count()))
 
     # If the order in PATH does not match what we want, delete existing
     # values and add again.
-    current_indexes = [path_index_m.get(p, -1) for p in snafu_paths]
+    current_indexes = [path_index_m.get(p, -1) for p in paths]
     if current_indexes != sorted(current_indexes):
-        for p in snafu_paths:
+        for p in paths:
             del path_index_m[p]
 
-    for value in snafu_paths:
+    for value in paths:
         path_index_m[value] = None  # Value irrelevant, we want only the key.
 
     new_paths = list(path_index_m.keys())
@@ -61,7 +61,7 @@ def add_snafu_paths(instdir):
     return False
 
 
-def get_snafu_path_values(instdir):
+def get_paths_to_add(instdir):
     return [
         str(instdir.joinpath('scripts')),
         str(instdir.joinpath('cmd')),
@@ -70,7 +70,7 @@ def get_snafu_path_values(instdir):
 
 def install(instdir):
     return any([
-        add_snafu_paths(instdir),
+        add_paths(instdir),
     ])
 
 
@@ -78,7 +78,7 @@ def uninstall(instdir):
     current_values, vtype = get_path_values()
     values = [
         v for v in current_values
-        if v not in get_snafu_path_values(instdir)
+        if v not in get_paths_to_add(instdir)
     ]
     if current_values != values:
         set_path_values(values, vtype)

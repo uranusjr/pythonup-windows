@@ -16,7 +16,7 @@
 !define NAME 'PythonUp: The Python Runtime Manager'
 
 !define UNINSTALL_REGKEY \
-    'Software\Microsoft\Windows\CurrentVersion\Uninstall\SNAFU'
+    'Software\Microsoft\Windows\CurrentVersion\Uninstall\PythonUp'
 
 !define UNINSTALL_EXE "$INSTDIR\Uninstall.exe"
 
@@ -34,7 +34,7 @@ ManifestSupportedOS all
 
 Name "${NAME}"
 OutFile "pythonup-setup.exe"
-InstallDir "$LOCALAPPDATA\Programs\SNAFU"
+InstallDir "$LOCALAPPDATA\Programs\PythonUp"
 
 Var InstallsPythonCheckbox
 Var InstallsPython
@@ -125,7 +125,7 @@ Section "${NAME}"
     CopyFiles "$INSTDIR\lib\python\${VCRUNTIME}" "$INSTDIR\cmd"
 
     # Write install information.
-    WriteRegStr HKCU "Software\\uranusjr\\SNAFU" "InstallPath" "$INSTDIR"
+    WriteRegStr HKCU "Software\\uranusjr\\PythonUp\\InstallPath" "" "$INSTDIR"
 
     # Write uninstaller and register it to Windows.
     WriteUninstaller "${UNINSTALL_EXE}"
@@ -139,6 +139,6 @@ Section "un.Uninstaller"
     nsExec::ExecToLog "$\"$INSTDIR\lib\python\python.exe$\" \
         $\"$INSTDIR\lib\setup\env.py$\" --uninstall $\"$INSTDIR$\""
     Rmdir /r "$INSTDIR"
-    DeleteRegKey HKCU "Software\\uranusjr\\SNAFU"
+    DeleteRegKey HKCU "Software\\uranusjr\\PythonUp"
     DeleteRegKey HKLM "${UNINSTALL_REGKEY}"
 SectionEnd

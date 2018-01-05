@@ -47,8 +47,8 @@ a more seamless experience.
 .. _Chocolatey: https://chocolatey.org
 
 
-.. Why SNAFU?
-   ----------
+.. Why is this called SNAFU?
+   -------------------------
 
 .. Because Python is hard, Windows is harder, and setting up Windows for
    Python development is SNAFU. Or it’s Supernatrual Administration for You.

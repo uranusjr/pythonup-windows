@@ -11,7 +11,7 @@ use self::winreg::RegKey;
 use self::winreg::enums::{HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE};
 
 
-const PYTHON_KEY_PATHS: &'static [(HKEY, &str); 3] = &[
+const PYTHON_KEY_PATHS: &[(HKEY, &str); 3] = &[
     (HKEY_CURRENT_USER, "Software\\Python\\PythonCore"),
     (HKEY_LOCAL_MACHINE, "Software\\Python\\PythonCore"),
     (HKEY_LOCAL_MACHINE, "Software\\Wow6432Node\\Python\\PythonCore"),
@@ -82,19 +82,18 @@ pub fn find_best_installed(tag: &Tag) -> Result<PathBuf, String> {
 
 /// Find which of the "using" Pythons should be used.
 ///
-/// This collects "using" Pythons in the registry, set by the `snafu use`
-/// command, and look at them one by one until one of those match what the
-/// tag asks for.
+/// This collects "using" Pythons in the registry, set by the "use" command,
+/// and look at them one by one until one of those match what the tag asks for.
 pub fn find_best_using(tag: &Tag) -> Result<PathBuf, String> {
-    let key_path_str = "Software\\uranusjr\\SNAFU";
+    let key_path = "Software\\uranusjr\\PythonUp\\ActivePythonVersions";
 
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
-    let key = try!(hkcu.open_subkey(&key_path_str).map_err(|e| {
-        format!("failed to open {}: {}", key_path_str, e)
+    let key = try!(hkcu.open_subkey(key_path).map_err(|e| {
+        format!("failed to open {}: {}", key_path, e)
     }));
-    let value: String = try! {
-        key.get_value("ActivePythonVersions").map_err(|e| e.to_string())
-    };
+    let value: String = try!(key.get_value("").map_err(|e| {
+        format!("failed to read {}: {}", key_path, e)
+    }));
 
     for name in value.split(';') {
         match Tag::parse_strict(name) {
@@ -116,18 +115,16 @@ pub fn find_best_using(tag: &Tag) -> Result<PathBuf, String> {
 /// This should be the embedded Python library bundled with PythonUp, not one
 /// of the user's Python distributions.
 pub fn find_of_pythonup() -> Result<PathBuf, String> {
-    let key_path = "Software\\uranusjr\\SNAFU";
+    let key_path = "Software\\uranusjr\\PythonUp\\InstallPath";
 
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
     let key = try!(hkcu.open_subkey(key_path).map_err(|e| {
         format!("failed to open {}: {}", key_path, e)
     }));
 
-    let value: String = try! {
-        key.get_value("InstallPath").map_err(|e| {
-            format!("failed to read InstallPath of {}: {}", key_path, e)
-        })
-    };
+    let value: String = try!(key.get_value("").map_err(|e| {
+        format!("failed to read {}: {}", key_path, e)
+    }));
 
     let mut path_buf = PathBuf::new();
     path_buf.push(value);

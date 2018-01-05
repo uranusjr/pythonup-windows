@@ -58,7 +58,7 @@ def get_kb_msu_url(architecture, wver, warc):
     )
 
 
-def get_snafu_version():
+def get_version():
     with ROOT.parent.joinpath('pythonup', '__init__.py').open() as f:
         for line in f:
             if line.startswith('__version__'):
@@ -308,7 +308,7 @@ def check_version(v):
     # Not really a version...Likely a Git hash.
     if not isinstance(version, packaging.version.Version):
         return
-    mod_v = get_snafu_version()
+    mod_v = get_version()
     if mod_v != version:
         raise AssertionError(
             f'module version does not match installer: {mod_v} != {version}'

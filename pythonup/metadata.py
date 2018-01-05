@@ -41,8 +41,8 @@ def find_uninstaller_id(name):
         sub_name = winreg.EnumKey(key, i)
         subkey = winreg.OpenKey(key, sub_name)
         try:
-            display_name, _ = winreg.QueryValueEx(subkey, 'DisplayName')
-            publisher, _ = winreg.QueryValueEx(subkey, 'Publisher')
+            display_name = winreg.QueryValue(subkey, 'DisplayName')
+            publisher = winreg.QueryValue(subkey, 'Publisher')
         except FileNotFoundError:
             continue
         finally:
@@ -74,7 +74,7 @@ def get_bundle_cache_path(name):
         ]
         try:
             key = winreg.OpenKey(top_key, '\\'.join(key_parts))
-            value, _ = winreg.QueryValueEx(key, 'BundleCachePath')
+            value = winreg.QueryValue(key, 'BundleCachePath')
             path = pathlib.Path(value).resolve(strict=True)
         except FileNotFoundError:
             continue
@@ -85,20 +85,20 @@ def get_bundle_cache_path(name):
     raise FileNotFoundError
 
 
+ACTIVE_PYTHONS_KEY = 'Software\\uranusjr\\PythonUp\\ActivePythonVersions'
+
+
 def get_active_python_versions():
-    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Software\\uranusjr\\SNAFU')
-    value, _ = winreg.QueryValueEx(key, 'ActivePythonVersions')
-    winreg.CloseKey(key)
+    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, ACTIVE_PYTHONS_KEY) as key:
+        value = winreg.QueryValue(key, '')
 
     return value.split(';') if value else []
 
 
 def set_active_python_versions(names):
     value = ';'.join(names)
-    key = winreg.CreateKey(
-        winreg.HKEY_CURRENT_USER, 'Software\\uranusjr\\SNAFU',
-    )
-    winreg.SetValueEx(key, 'ActivePythonVersions', 0, winreg.REG_SZ, value)
+    key = winreg.CreateKey(winreg.HKEY_CURRENT_USER, ACTIVE_PYTHONS_KEY)
+    winreg.SetValueEx(key, '', 0, winreg.REG_SZ, value)
     winreg.CloseKey(key)
 
 
