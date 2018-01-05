@@ -1,3 +1,4 @@
+import ast
 import itertools
 import json
 import pathlib
@@ -63,7 +64,7 @@ def get_version():
         for line in f:
             if line.startswith('__version__'):
                 vs = line[len('__version__ = '):]
-                return packaging.version.parse(eval(vs))
+                return packaging.version.parse(ast.literal_eval(vs))
 
 
 def get_latest_python_name():
