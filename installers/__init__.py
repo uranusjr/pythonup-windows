@@ -249,8 +249,8 @@ def build_lib_shims(libdir):
     shimsdir = libdir.joinpath('shims')
     shimsdir.mkdir()
     print('Copy shims...')
-    for path in SHIMSDIR.joinpath('shim', 'target', 'release').iterdir():
-        if path.suffix != '.exe':
+    for path in SHIMSDIR.joinpath('target', 'release').iterdir():
+        if path.suffix != '.exe' or path.name == 'pythonup.exe':
             continue
         name = path.name
         print('  {}'.format(name))

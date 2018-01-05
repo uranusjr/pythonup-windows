@@ -42,7 +42,7 @@ pub fn pymod_and_link(find_python: fn(&Tag) -> Result<PathBuf, String>) {
     // TODO: Only relink when needed. How does Pyenv do this?;
     run_and_end(
         &find_of_snafu().unwrap_or_else(print_and_abort),
-        &vec!["-m", "snafu", "link", "--all", "--overwrite=smart"],
+        &vec!["-m", "pythonup", "link", "--all", "--overwrite=smart"],
         false,
     );
 }
