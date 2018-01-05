@@ -4,13 +4,13 @@
 Misc. Commands
 ==============
 
-Upgrade SNAFU Itself
+Upgrade PythonUp Itself
 ====================
 
-A special ``upgrade`` syntax to upgrade not a Python version, but SNAFU
+A special ``upgrade`` syntax to upgrade not a Python version, but PythonUp
 itself::
 
-    snafu upgrade self
+    pythonup upgrade self
 
 This simply downloads the official installer and runs it.
 
@@ -22,11 +22,11 @@ List Pythons
 
 This lists Python versions installed in your system::
 
-    snafu list
+    pythonup list
 
 To list *all* Python versions available, including uninstalled ones, use::
 
-    snafu list --all
+    pythonup list --all
 
 Either way, the output would be something like this::
 
@@ -45,7 +45,7 @@ Download Python
 
 ::
 
-    snafu download <version>
+    pythonup download <version>
 
 downloads the installer without exicuting it. The installer is saved to the
 current working directory by default, but you can also specify another
@@ -57,7 +57,7 @@ Find Python Installation
 
 ::
 
-    snafu where <version>
+    pythonup where <version>
 
 prints where the installed ``python.exe`` really is, usually something
 like::
@@ -73,7 +73,7 @@ Link Individual Scripts
 
 ::
 
-    snafu link <command>
+    pythonup link <command>
 
 links the specified command to your ``PATH``. Nice to have when you accidetally
 break the system. There are ``--overwrite=yes`` and ``--all`` you can use for

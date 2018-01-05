@@ -1,10 +1,10 @@
 .. _develop:
 
-===================
-Contribute to SNAFU
-===================
+==================================
+Contribute to PythonUp for Windows
+==================================
 
-Development of SNAFU happens on `GitHub <https://github.com/uranusjr/snafu>`__.
+Development happens on `GitHub <https://github.com/uranusjr/pythonup-windows>`__.
 
 
 Development Guide
@@ -34,8 +34,8 @@ Project Setup
 
 Download and enter the project::
 
-    git clone https://github.com/uranusjr/snafu.git
-    cd snafu
+    git clone https://github.com/uranusjr/pythonup-windows.git
+    cd pythonup-windows
 
 Set up environment::
 
@@ -58,16 +58,16 @@ Run Rust tests::
 
 Unfortunately there are only very limited tests right now.
 
-Run In-Development SNAFU
-------------------------
+Run In-Development PythonUp
+---------------------------
 
 ::
 
-    pipenv run python -m snafu [COMMAND] ...
+    pipenv run python -m pythonup [COMMAND] ...
 
 
-This should have the same behaviour as an installed SNAFU command, but run
-inside the Pipenv-managed virtual environment.
+This should have the same behaviour as an installed command, but within the
+confine of the Pipenv-managed virtual environment.
 
 Build Installer
 ---------------

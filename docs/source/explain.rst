@@ -1,8 +1,8 @@
-=============
-Explain SNAFU
-=============
+================
+Explain PythonUp
+================
 
-The idea of SNAFU formed gradually from problems I faced when working on
+The idea of PythonUp formed gradually from problems I faced when working on
 multiple development machines, constantly switching between Windows and macOS.
 I long a more consistent development experience, and a good way to manage my
 Python environment on Windows.
@@ -10,13 +10,13 @@ Python environment on Windows.
 I tried out quite a few solutions. While a lot of them work for myself (to
 varying degree), none of them make me feel comfortable because *I can’t teach
 anybody about them*, which means they are all somehow wrong. Eventually I
-decided I need a complete managing system, which became SNAFU.
+decided I need a complete managing system, which became PythonUp.
 
 Below are some questions I either faced when discussing the Python setup
 problem with others, or through introspection. Each question represents an
 alternative solution I tried, but eventually couldn’t feel satisfied with. I
-hope they will answer *why* I think SNAFU is the best solution, and you should
-adapt it as well.
+hope they will answer *why* I think PythonUp is the best solution, and you
+should adapt it as well.
 
 
 Why Not “Add Python to PATH”?
@@ -56,16 +56,16 @@ example::
 
 to run ``foo.py`` with Python 3.5.
 
-This is such a good idea *SNAFU installs the Py Launcher during setup*, and I
-encourage you to use it. But SNAFU also solves a few additional use cases that
-``py.exe`` doesn’t:
+This is such a good idea *PythonUp installs the Py Launcher during setup*, and
+I encourage you to use it. But PythonUp also solves a few additional use cases
+that ``py.exe`` doesn’t:
 
 * Availability of versioned Python executables, e.g. ``python3.6.exe``.
 * Managing commands other than ``python.exe``.
 
-SNAFU’s implementation also relies on a lot of the same registry values read by
-``py.exe``, which are formally defined in `PEP 514`_, so you can view SNAFU as
-a supplement to ``py.exe``, not a replacement.
+PythonUp’s implementation also relies on a lot of the same registry values read
+by ``py.exe``, which are formally defined in `PEP 514`_, so you can view
+PythonUp as a supplement to ``py.exe``, not a replacement.
 
 .. _`PEP 397`: https://www.python.org/dev/peps/pep-0397/
 .. _`PEP 514`: https://www.python.org/dev/peps/pep-0514/
@@ -86,21 +86,21 @@ you can manage it directly, without special priviledge.
 Why Not Chocolatey?
 ===================
 
-Chocolatey_ is a package manager on Windows. A lot of SNAFU’s ideas are
+Chocolatey_ is a package manager on Windows. A lot of PythonUp’s ideas are
 inspired by it: standard Windows installers, interaction-free installation,
 and shims for execution in command prompts. It is a very good tool, and I use
-it on my Windows machine—alongside SNAFU.
+it on my Windows machine—alongside PythonUp.
 
 .. _Chocolatey: https://chocolatey.org
 
-What SNAFU is to Chocolatey is similar to Pyenv to Homebrew and API etc. The
+What PythonUp is to Chocolatey is similar to pyenv to Homebrew on macOS. The
 aims are similar, but slightly different, so we can take an approach tailored
 to Python distribution.
 
 Also I’m not very satisfied with Chocolatey’s user story. The setup is slightly
 complicated (due to Powershell’s execution policy), and requires administration
 priviledge to install packages. This is because it is fulfilling a different
-goal from SNAFU’s, but still makes me feel uncomforatble enough not to teach
+goal from PythonUp’s, but still makes me feel uncomforatble enough not to teach
 it to others.
 
 
@@ -137,5 +137,5 @@ with the user interface they long for a better solution.
 
 Anaconda is incredibly useful for those who need it, but its version management
 tooling is simply not good enough. Fortunately, since Anaconda already conforms
-to `PEP 514`_, there’s nothing theoratically preventing SNAFU to co-live with
-Anaconda, so people can use SNAFU to manage Anaconda versions instead.
+to `PEP 514`_, there’s nothing theoratically preventing PythonUp to co-live
+with Anaconda, so people can use PythonUp to manage Anaconda versions instead.

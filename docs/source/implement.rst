@@ -1,8 +1,8 @@
-===============
-Implement SNAFU
-===============
+==================
+Implement PythonUp
+==================
 
-Some implementation notes about SNAFU, in a series of questions. Nobody ever
+Some implementation notes about PythonUp, in a series of questions. Nobody ever
 asked, but I want to answer them.
 
 How are Pythons installed?
@@ -32,7 +32,7 @@ specified in `PEP 397`_.
 
 .. _`PEP 397`: https://www.python.org/dev/peps/pep-0397/
 
-A few wrapper executables (shims_) are distributed with SNAFU, and are
+A few wrapper executables (shims_) are distributed with PythonUp, and are
 published into ``PATH`` to stub a few special executables, such as
 ``python.exe`` and ``pip.exe``. When invoked, these shims rely on the registry
 to launch their real conterparts, and bridge all user interaction to them.
@@ -47,9 +47,9 @@ a more seamless experience.
 .. _Chocolatey: https://chocolatey.org
 
 
-Why the name?
--------------
+.. Why SNAFU?
+   ----------
 
-Because Python is hard, Windows is harder, and setting up Windows for Python
-development is SNAFU. Or it’s Supernatrual Administration for You. Mosky says
-it sounds kind of like snake, so there’s that.
+.. Because Python is hard, Windows is harder, and setting up Windows for
+   Python development is SNAFU. Or it’s Supernatrual Administration for You.
+   Mosky says it sounds kind of like snake, so there’s that.
