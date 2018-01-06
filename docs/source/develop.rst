@@ -68,7 +68,7 @@ confine of the Pipenv-managed virtual environment.
 .. warning::
 
     PythonUp depends a lot on the Windows Registry, so certain commands still
-    has some global implications. For example, the ``uninstall`` command will
+    have global implications. For example, the ``uninstall`` command will
     uninstall Python from your system, and ``use`` will affect your global
     using state!
 
