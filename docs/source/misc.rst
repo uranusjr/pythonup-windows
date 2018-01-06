@@ -5,7 +5,7 @@ Misc. Commands
 ==============
 
 Upgrade PythonUp Itself
-====================
+=======================
 
 A special ``upgrade`` syntax to upgrade not a Python version, but PythonUp
 itself::

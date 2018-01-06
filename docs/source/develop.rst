@@ -23,7 +23,7 @@ Optional Dependencies
 ---------------------
 
 * Rust_ if you want to build the shims. The Rust development environment needs
-  to be available in your shell.
+  to be available in your shell. PythonUp targets the stable channel.
 * NSIS_ 3.x if you want to build the installer. ``makensis`` needs to be
   available in your shell.
 
@@ -62,9 +62,16 @@ Run In-Development PythonUp
 
     pipenv run python -m pythonup [COMMAND] ...
 
-
 This should have the same behaviour as an installed command, but within the
 confine of the Pipenv-managed virtual environment.
+
+.. warning::
+
+    PythonUp depends a lot on the Windows Registry, so certain commands still
+    has some global implications. For example, the ``uninstall`` command will
+    uninstall Python from your system, and ``use`` will affect your global
+    using state!
+
 
 Build Installer
 ---------------
