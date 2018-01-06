@@ -16,17 +16,18 @@ Requirements
 * Windows
 * Python 3.6
 * Pipenv_
-* Rust_
 
 .. _Pipenv: https://pipenv.org
-.. _Rust: https://www.rust-lang.org/en-US/install.html
 
 Optional Dependencies
 ---------------------
 
-* NSIS_ 3.x if you want to build shims and the installer. ``makensis``
-  needs to be available in your shell.
+* Rust_ if you want to build the shims. The Rust development environment needs
+  to be available in your shell.
+* NSIS_ 3.x if you want to build the installer. ``makensis`` needs to be
+  available in your shell.
 
+.. _Rust: https://www.rust-lang.org/install.html
 .. _NSIS: http://nsis.sourceforge.net/Download
 
 Project Setup
@@ -40,10 +41,6 @@ Download and enter the project::
 Set up environment::
 
     pipenv install --dev
-
-Build the shims::
-
-    pipenv run invoke shims.build
 
 Run Tests
 ---------
