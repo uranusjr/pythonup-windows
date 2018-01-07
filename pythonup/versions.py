@@ -134,7 +134,7 @@ class CPythonMSIVersion(Version):
         ]
         subprocess.check_call(
             ' '.join(parts),
-            shell=True,     # So we don't need to know where msiexec is.
+            shell=True,     # So we don't need to know what msiexec is.
         )
 
     def install(self, cmd):
@@ -144,8 +144,11 @@ class CPythonMSIVersion(Version):
 
     def upgrade(self, cmd):
         # There is no way to know what was installed from the previous MSI
-        # installer; all we can do is installing what we want to the location
-        # we want, and leave the old version installation untouched.
+        # installer; all we can do is installing what we want to the best
+        # location found, and leave other components in place.
+        # TODO: Is it possible to tell whether an existing installation is
+        # 32-bit or 64-bit so we can match it? I can't find anything in the
+        # registry.
         self._run_installer(cmd, self.get_installation().path)
 
     def get_cached_uninstaller(self):
