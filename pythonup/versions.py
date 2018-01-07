@@ -143,13 +143,20 @@ class CPythonMSIVersion(Version):
         return dirpath
 
     def upgrade(self, cmd):
-        # There is no way to know what was installed from the previous MSI
-        # installer; all we can do is installing what we want to the best
-        # location found, and leave other components in place.
-        # TODO: Is it possible to tell whether an existing installation is
-        # 32-bit or 64-bit so we can match it? I can't find anything in the
-        # registry.
-        self._run_installer(cmd, self.get_installation().path)
+        # MSI installers don't allow 64-bit and 32-bit to co-exist, so we
+        # assumed we're using the same architecture as the host. In the case
+        # of upgrading, however, we need to be absolutely sure so not to break
+        # the installation. How? Just ask the installation directly.
+        installation = self.get_installation()
+
+        # Now this is guarenteed to match the current installation's bitness.
+        version = get_version(self.name, force_32=installation.is_32bit())
+
+        # Run the installer to upgrade. There's no way to know what was
+        # installed previously; all we can do is to install what we want to
+        # where the installation is. This will leave old components (e.g. old
+        # docs) unmodified and out of sync, but there's nothing we can do.
+        version._run_installer(cmd, installation.path)
 
     def get_cached_uninstaller(self):
         info = self.get_installation().get_version_info()

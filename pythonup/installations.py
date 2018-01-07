@@ -1,3 +1,4 @@
+import ast
 import contextlib
 import itertools
 import os
@@ -31,6 +32,15 @@ class Installation:
         ).strip()
         match = re.match(r'^Python (\d+)\.(\d+)\.(\d+)$', output)
         return tuple(int(x) for x in match.groups())
+
+    def is_32bit(self):
+        """Ask the interpreter about its bitness.
+
+        The return value should match :ref:`.metadata.is_python_32bit()`.
+        """
+        return bool(ast.eval_literal(subprocess.check_output([
+            self.python, '-c', '"import sys; print(sys.maxsize <= 2 ** 32)"',
+        ]).strip()))
 
     def find_script(self, name):
         names = itertools.chain([name], [
