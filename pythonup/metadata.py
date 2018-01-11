@@ -41,8 +41,8 @@ def find_uninstaller_id(name):
         sub_name = winreg.EnumKey(key, i)
         subkey = winreg.OpenKey(key, sub_name)
         try:
-            display_name = winreg.QueryValue(subkey, 'DisplayName')
-            publisher = winreg.QueryValue(subkey, 'Publisher')
+            display_name, _ = winreg.QueryValueEx(subkey, 'DisplayName')
+            publisher, _ = winreg.QueryValueEx(subkey, 'Publisher')
         except FileNotFoundError:
             continue
         finally:
@@ -74,7 +74,7 @@ def get_bundle_cache_path(name):
         ]
         try:
             key = winreg.OpenKey(top_key, '\\'.join(key_parts))
-            value = winreg.QueryValue(key, 'BundleCachePath')
+            value, _ = winreg.QueryValueEx(key, 'BundleCachePath')
             path = pathlib.Path(value).resolve(strict=True)
         except FileNotFoundError:
             continue
