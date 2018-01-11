@@ -23,7 +23,9 @@ def cli(ctx, version):
 
 @cli.command(help='Install a Python version.')
 @click.argument('version')
-@click.option('--use', is_flag=True, help='Use version after installation.')
+@click.option(
+    '--use/--no-use', default=None, help='Use version after installation.',
+)
 @click.option(
     '--file', 'from_file', type=click.Path(exists=True),
     help='Specify an installer to not downloading one.',

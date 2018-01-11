@@ -25,7 +25,7 @@ def install(version, use, from_file):
     else:
         installer_path = pathlib.Path(from_file)
 
-    if not use and not get_versions(installed_only=True):
+    if use is None and not get_versions(installed_only=True):
         use = True
         click.echo('Will use {} after installation.'.format(version))
 
