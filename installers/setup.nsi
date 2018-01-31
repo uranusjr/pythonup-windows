@@ -125,7 +125,7 @@ Section "${NAME}"
     CopyFiles "$INSTDIR\lib\python\${VCRUNTIME}" "$INSTDIR\cmd"
 
     # Write install information.
-    WriteRegStr HKCU "Software\\uranusjr\\PythonUp\\InstallPath" "" "$INSTDIR"
+    WriteRegStr HKCU "Software\uranusjr\PythonUp\InstallPath" "" "$INSTDIR"
 
     # Write uninstaller and register it to Windows.
     WriteUninstaller "${UNINSTALL_EXE}"
@@ -139,6 +139,6 @@ Section "un.Uninstaller"
     nsExec::ExecToLog "$\"$INSTDIR\lib\python\python.exe$\" \
         $\"$INSTDIR\lib\setup\env.py$\" --uninstall $\"$INSTDIR$\""
     Rmdir /r "$INSTDIR"
-    DeleteRegKey HKCU "Software\\uranusjr\\PythonUp"
+    DeleteRegKey HKCU "Software\uranusjr\PythonUp"
     DeleteRegKey HKLM "${UNINSTALL_REGKEY}"
 SectionEnd
