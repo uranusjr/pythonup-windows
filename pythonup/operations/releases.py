@@ -1,4 +1,4 @@
-import ctypes
+import os
 import pathlib
 import warnings
 
@@ -13,25 +13,9 @@ def install_self_upgrade(path):
     click.echo('PythonUp will terminate now to let the installer run.')
     click.echo('Come back after the installation finishes. See ya later!')
 
-    # The PythonUp installer requests elevation, so subprocess won't work, and
-    # we need some Win32 API magic here. (Notice we use 'open', not 'runas';
-    # the installer requests elevation on its own; we don't need to do that.)
-    # Launched process is in a detached state so the command process ends here,
-    # releasing files for the installer to overwrite.
-    instance = ctypes.windll.shell32.ShellExecuteW(
-        None, 'open', str(path), '', None, 1,
-    )
-
-    if instance < 32:   # According to MSDN this is an error.
-        message = '\n'.join([
-            'Failed to launcn installer (error code {}).'.format(instance),
-            'Find the downloaded installer and execute yourself at:',
-            '  {}'.format(path),
-        ])
-        click.echo(message, err=True)
-        click.get_current_context().exit(1)
-    else:
-        click.get_current_context().exit(0)
+    # Launch detached installer and exit, releasing files for writes.
+    os.startfile(path)
+    click.get_current_context().exit(0)
 
 
 def self_upgrade(*, installer, pre):
