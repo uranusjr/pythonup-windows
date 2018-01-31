@@ -69,7 +69,7 @@ impl Commands {
         let mut bytes = vec![];
         while let Some(result) = self.iter.next() { match result {
             Ok(byte) => match byte {
-                10 => { // Line feed.
+                10 => { // Line feed signifies end of command.
                     if !bytes.is_empty() {
                         push_arg!(command, bytes);
                     }
@@ -78,7 +78,7 @@ impl Commands {
                         None => None,
                     };
                 },
-                0 => {  // Null.
+                0 => {  // Null signifies end of argument.
                     push_arg!(command, bytes);
                     bytes = vec![];
                 },

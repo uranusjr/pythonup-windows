@@ -46,6 +46,17 @@ def publish_file(source, target, *, overwrite, quiet):
 
 
 def publish_shim(source, target, *, relink, overwrite, quiet):
+    """Write a shim.
+
+    A shim is an pre-compiled executable, with extra data appended to the end
+    of it. The extra data contain what command(s) the shim should attempt to
+    execute when launched. Arguments are seperated by NULL characters, and
+    commands (if there are multiple) are seperated by line feeds. Two extra
+    line feeds signify the end of the command sequence.
+
+    The extra data are encoded with UTF-8, and written *backwards* into the
+    executable. This makes it easier to read data out.
+    """
     success = publish_file(
         configs.get_shim_path(), target,
         overwrite=overwrite, quiet=quiet,
