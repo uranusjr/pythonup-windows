@@ -23,30 +23,30 @@ matrix:
       INSTALLER_ARCH: "win32"
 
 install:
-  - "SET PATH=%PATH%;C:\\Program Files (x86)\\NSIS\\Bin"
+  - SET PATH=%PATH%;C:\Program Files (x86)\NSIS\Bin
 
   - curl -sSf -o rustup-init.exe https://win.rustup.rs
   - .\rustup-init.exe --default-host %RUST_HOST% --default-toolchain stable -y
   - SET PATH=%PATH%;C:\Users\appveyor\.cargo\bin
 
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-  - "python -m pip install --disable-pip-version-check --upgrade pip"
-  - "pip install --upgrade pipenv"
-  - "pipenv install --system --dev --skip-lock"
+  - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - python -m pip install --disable-pip-version-check --upgrade pip
+  - pip install --upgrade pipenv
+  - pipenv install --system --dev --skip-lock
 
-  - "SET PATH"
+  - SET PATH
 
 build_script:
-  - "for /f %%i in ('git describe') do @set REPO_GIT_VERSION=%%i"
-  - "invoke installers.build --version=%REPO_GIT_VERSION% --no-clean"
-  - "SET SETUP_EXE=pythonup-setup-%INSTALLER_ARCH%-%REPO_GIT_VERSION%.exe"
+  - for /f %%i in ('git describe') do @set REPO_GIT_VERSION=%%i
+  - invoke installers.build --version=%REPO_GIT_VERSION% --no-clean
+  - SET SETUP_EXE=pythonup-setup-%INSTALLER_ARCH%-%REPO_GIT_VERSION%.exe
 
 after_build:
-  - appveyor PushArtifact .\\installers\\%SETUP_EXE%
+  - appveyor PushArtifact .\installers\%SETUP_EXE%
 
 test_script:
-  - "flake8 ."
-  - "pytest tests"
-  - "invoke shims.test"
+  - flake8 .
+  - pytest tests
+  - invoke shims.test
 
-  - "docker build --build-arg SETUP_EXE=%SETUP_EXE% .\\installers"
+  - docker build --build-arg SETUP_EXE=%SETUP_EXE% .\installers
