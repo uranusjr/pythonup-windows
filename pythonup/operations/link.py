@@ -3,6 +3,7 @@ import enum
 import filecmp
 import itertools
 import shutil
+import sys
 
 import click
 
@@ -44,19 +45,36 @@ def publish_file(source, target, *, overwrite, quiet):
     return True
 
 
-def publish_shim(name, target, *, overwrite, quiet):
-    return publish_file(
-        configs.get_shim_path(name), target,
+def publish_shim(source, target, *, relink, overwrite, quiet):
+    success = publish_file(
+        configs.get_shim_path(), target,
         overwrite=overwrite, quiet=quiet,
     )
+    if not success:
+        return False
+
+    cmds = [[str(source.resolve(strict=True))]]
+    if relink:
+        cmds.append([
+            sys.executable, '-m', 'pythonup',
+            'link', '--all', '--overwrite=smart',
+        ])
+    data = bytes(reversed(
+        ('\n'.join('\0'.join(args) for args in cmds) + '\n\n').encode('utf-8')
+    ))
+    with target.open('ab') as f:
+        f.write(data)
+
+    return True
 
 
 def safe_unlink(p):
-    if p.exists():
-        try:
-            p.unlink()
-        except OSError as e:
-            click.echo('Failed to remove {} ({})'.format(p, e), err=True)
+    if not p.exists():
+        return
+    try:
+        p.unlink()
+    except OSError as e:
+        click.echo('Failed to remove {} ({})'.format(p, e), err=True)
 
 
 def collect_version_scripts(versions):
@@ -84,7 +102,7 @@ def collect_version_scripts(versions):
                 continue
             names.add(path.name)
             if path.stem in shimmed_stems:
-                shims.append(path.name)
+                shims.append(path)
             else:
                 scripts.append(path)
     return scripts, shims
@@ -96,7 +114,7 @@ def activate(versions, *, overwrite=Overwrite.yes,
         click.echo('No active versions.', err=True)
         click.get_current_context().exit(1)
 
-    source_scripts, shims = collect_version_scripts(versions)
+    source_scripts, shimmed_scripts = collect_version_scripts(versions)
     scripts_dir = configs.get_scripts_dir_path()
 
     using_scripts = set()
@@ -104,7 +122,7 @@ def activate(versions, *, overwrite=Overwrite.yes,
     # TODO: Distinguish between `use` and automatic hook after shimmed pip
     # execution. The latter should only write scripts that actually chaged, or
     # at least should only log those writes (and overwrite others silently).
-    if source_scripts or shims or versions:
+    if source_scripts or shimmed_scripts or versions:
         if not quiet:
             click.echo('Publishing scripts....')
         for source in source_scripts:
@@ -113,13 +131,13 @@ def activate(versions, *, overwrite=Overwrite.yes,
                 continue
             using_scripts.add(target)
             publish_file(source, target, overwrite=overwrite, quiet=quiet)
-        for shim in shims:
-            target = scripts_dir.joinpath(shim)
+        for source in shimmed_scripts:
+            target = scripts_dir.joinpath(source.name)
             if target in using_scripts:
                 continue
             using_scripts.add(target)
             publish_shim(
-                'piplike-script', target, overwrite=overwrite, quiet=quiet,
+                source, target, relink=True, overwrite=overwrite, quiet=quiet,
             )
         for version in versions:
             target = version.python_major_command
@@ -127,7 +145,8 @@ def activate(versions, *, overwrite=Overwrite.yes,
                 continue
             using_scripts.add(target)
             publish_shim(
-                'python-script', target, overwrite=overwrite, quiet=quiet,
+                version.get_installation().python, target,
+                relink=False, overwrite=overwrite, quiet=quiet,
             )
 
     metadata.set_active_python_versions(version.name for version in versions)
@@ -143,15 +162,18 @@ def activate(versions, *, overwrite=Overwrite.yes,
 
 
 def link_commands(version):
+    installation = version.get_installation()
     for path in version.python_commands:
         click.echo('Publishing {}'.format(path.name))
         publish_shim(
-            'python-command', path, overwrite=Overwrite.yes, quiet=True,
+            installation.python, path,
+            relink=False, overwrite=Overwrite.yes, quiet=True,
         )
     for path in version.pip_commands:
         click.echo('Publishing {}'.format(path.name))
         publish_shim(
-            'piplike-command', path, overwrite=Overwrite.yes, quiet=True,
+            installation.pip, path,
+            relink=True, overwrite=Overwrite.yes, quiet=True,
         )
 
 

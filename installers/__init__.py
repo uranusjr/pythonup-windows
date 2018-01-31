@@ -251,7 +251,7 @@ def build_lib_shims(libdir):
     shimsdir.mkdir()
     print('Copy shims...')
     for path in SHIMSDIR.joinpath('target', 'release').iterdir():
-        if path.suffix != '.exe' or path.name == 'pythonup.exe':
+        if path.suffix != '.exe':
             continue
         name = path.name
         print('  {}'.format(name))
@@ -266,23 +266,12 @@ def build_lib(container, arch):
     build_lib_shims(libdir)
 
 
-def build_cmd(container):
-    cmddir = container.joinpath('cmd')
-    cmddir.mkdir()
-    print('Copying command shim.')
-    shutil.copy2(
-        str(SHIMSDIR.joinpath('target', 'release', 'pythonup.exe')),
-        str(cmddir.joinpath('pythonup.exe')),
-    )
-
-
 def build_files(arch):
     container = ROOT.joinpath('pythonup')
     if container.exists():
         shutil.rmtree(str(container))
     container.mkdir()
     build_lib(container, arch)
-    build_cmd(container)
 
 
 def build_installer(outpath):

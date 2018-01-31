@@ -89,6 +89,7 @@ Section "${NAME}"
     SetOutPath "$INSTDIR"
 
     File /r 'pythonup\*'
+    CreateDirectory "$INSTDIR\cmd"
     CreateDirectory "$INSTDIR\scripts"
 
     # Ensure appropriate Windows Update for CRT is installed.
@@ -97,6 +98,11 @@ Section "${NAME}"
     # Install Py launcher.
     DetailPrint "Installing Python Launcher (py.exe)..."
     nsExec::ExecToLog "msiexec /i $\"$INSTDIR\lib\setup\py.msi$\" /quiet"
+
+    # Create pythonup.exe shim.
+    DetailPrint "Creating entry script..."
+    nsExec::ExecToLog "$\"$INSTDIR\lib\python\python.exe$\" \
+        $\"$INSTDIR\lib\setup\shim.py$\" $\"$INSTDIR$\""
 
     # Setup environment.
     DetailPrint "Configuring environment..."

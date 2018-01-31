@@ -1,29 +1,10 @@
-[workspace]
-
 [package]
-name = "shims"
+name = "shim"
 version = "0.1.0"
 authors = ["Tzu-ping Chung <uranusjr@gmail.com>"]
 
+[[bin]]
+name = "shim"
+
 [dependencies]
-pythonup = { path = "pythonup" }
-
-[[bin]]
-name = "pythonup"
-path = "src/pythonup.rs"
-
-[[bin]]
-name = "python-command"
-path = "src/python/command.rs"
-
-[[bin]]
-name = "python-script"
-path = "src/python/script.rs"
-
-[[bin]]
-name = "piplike-command"
-path = "src/piplike/command.rs"
-
-[[bin]]
-name = "piplike-script"
-path = "src/piplike/script.rs"
+winapi = { version = "0.3.2", features = ["consoleapi", "jobapi2", "wincon"] }

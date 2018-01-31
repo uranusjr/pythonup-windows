@@ -11,7 +11,7 @@ extern crate winapi;
 use std::{env, mem};
 use std::os::windows::io::AsRawHandle;
 use std::path::PathBuf;
-use std::process::{Child, Command, abort, exit};
+use std::process::{Child, Command};
 
 use self::winapi::ctypes::c_void;
 use self::winapi::shared::minwindef::{BOOL, DWORD, LPVOID, TRUE};
@@ -81,7 +81,7 @@ unsafe fn setup_child(child: &mut Child) -> Result<(), &'static str> {
 /// to launch, or does not exit cleanly. If `with_own_args` is `true`, the
 /// child process is launched with arguments passed to the parent process,
 /// appende after `args`.
-pub fn run(exe: &PathBuf, args: &Vec<&str>, with_own_args: bool)
+pub fn run(exe: &PathBuf, args: &Vec<String>, with_own_args: bool)
         -> Result<i32, String> {
 
     let mut cmd = Command::new(exe);
@@ -105,19 +105,6 @@ pub fn run(exe: &PathBuf, args: &Vec<&str>, with_own_args: bool)
     // Doc seems to suggest this won't happen on Windows, but I'm not sure.
     // 137 is a common value seen with SIGKILL terminated programs.
     Ok(result.code().unwrap_or(137))
-}
-
-/// Like `run()`, but ends the parent process with the child.
-///
-/// This calls `std::process::exit()` with the child's exit code after the
-/// child exits.
-pub fn run_and_end(exe: &PathBuf, args: &Vec<&str>, own_args: bool) {
-    let code = run(exe, args, own_args).unwrap_or_else(|e| {
-        eprintln!("{}", e);
-        abort();
-    });
-    exit(code);
-    // Won't reach here.
 }
 
 /// Set up the parent process.
