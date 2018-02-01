@@ -28,3 +28,29 @@ def get_linkexe_script_path():
 
 def get_shim_path():
     return get_directory('shims_dir').joinpath('shim.exe')
+
+
+def get_conf_path():
+    path = get_directory('base_dir').joinpath('config')
+    path.touch(mode=0o644, exist_ok=True)
+    return path
+
+
+def safe_load(f):
+    try:
+        return json.load(f)
+    except json.JSONDecodeError:
+        return {}
+
+
+def get_active_names():
+    with get_conf_path().open() as f:
+        data = safe_load(f)
+    return data.get('using', [])
+
+
+def set_active_names(names):
+    with get_conf_path().open('w+') as f:
+        data = safe_load(f)
+        data['using'] = names
+        json.dump(data, f)

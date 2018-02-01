@@ -2,7 +2,7 @@ import functools
 
 import click
 
-from .. import metadata, versions
+from .. import configs, metadata, versions
 
 
 def check_installation(version, *, installed=True, on_exit=None):
@@ -23,10 +23,11 @@ def check_installation(version, *, installed=True, on_exit=None):
 
 
 def get_active_names():
-    try:
-        return metadata.get_active_python_versions()
-    except FileNotFoundError:
-        return []
+    return configs.get_active_names()
+
+
+def set_active_versions(versions):
+    configs.set_active_names([v.name for v in versions])
 
 
 def get_versions(*, installed_only):

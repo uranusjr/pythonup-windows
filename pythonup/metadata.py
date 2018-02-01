@@ -18,7 +18,7 @@ def get_install_path(name):
             key = winreg.OpenKey(root, keypath)
         except FileNotFoundError:
             continue
-        install_path = winreg.QueryValue(key, None)
+        install_path, _ = winreg.QueryValueEx(key, '')
         winreg.CloseKey(key)
         return pathlib.Path(install_path).resolve(strict=True)
     raise FileNotFoundError(
@@ -64,7 +64,7 @@ def get_bundle_cache_path(name):
         winreg.HKEY_CLASSES_ROOT,
         'Installer\\Dependencies\\CPython-{}'.format(name),
     )
-    guid = winreg.QueryValue(key, '')
+    guid, _ = winreg.QueryValueEx(key, '')
     winreg.CloseKey(key)
 
     for top_key in (winreg.HKEY_CURRENT_USER, winreg.HKEY_LOCAL_MACHINE):
@@ -83,23 +83,6 @@ def get_bundle_cache_path(name):
         finally:
             winreg.CloseKey(key)
     raise FileNotFoundError
-
-
-ACTIVE_PYTHONS_KEY = 'Software\\uranusjr\\PythonUp\\ActivePythonVersions'
-
-
-def get_active_python_versions():
-    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, ACTIVE_PYTHONS_KEY) as key:
-        value = winreg.QueryValue(key, '')
-
-    return value.split(';') if value else []
-
-
-def set_active_python_versions(names):
-    value = ';'.join(names)
-    key = winreg.CreateKey(winreg.HKEY_CURRENT_USER, ACTIVE_PYTHONS_KEY)
-    winreg.SetValueEx(key, '', 0, winreg.REG_SZ, value)
-    winreg.CloseKey(key)
 
 
 def can_install_64bit():

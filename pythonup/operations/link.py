@@ -7,10 +7,11 @@ import sys
 
 import click
 
-from .. import configs, metadata
+from .. import configs
 
 from .common import (
-    check_installation, get_active_names, get_version, version_command,
+    check_installation, get_active_names, get_version,
+    set_active_versions, version_command,
 )
 
 
@@ -160,7 +161,7 @@ def activate(versions, *, overwrite=Overwrite.yes,
                 relink=False, overwrite=overwrite, quiet=quiet,
             )
 
-    metadata.set_active_python_versions(version.name for version in versions)
+    set_active_versions(versions)
 
     stale_scripts = set(scripts_dir.iterdir()) - using_scripts
     if stale_scripts:

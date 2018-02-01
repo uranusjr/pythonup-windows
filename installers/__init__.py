@@ -188,6 +188,7 @@ def build_lib_python(libdir, arch):
     # Write runtime configurations.
     with pythondir.joinpath('pythonup', 'installation.json').open('w') as f:
         json.dump({
+            'base_dir': '..\\..\\..',
             'cmd_dir': '..\\..\\..\\cmd',
             'scripts_dir': '..\\..\\..\\scripts',
             'shims_dir': '..\\..\\shims',

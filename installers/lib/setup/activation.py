@@ -1,4 +1,5 @@
 import contextlib
+import winreg
 
 import click
 
@@ -14,14 +15,32 @@ def get_version_or_none(name):
     return None
 
 
+ACTIVE_PYTHONS_KEY = 'Software\\uranusjr\\PythonUp\\ActivePythonVersions'
+
+
+def _compat_get_active_python_versions():
+    """Read old config stored in registry.
+
+    We honour this for users upgrading from old versions, and convert the
+    value to the new format.
+    """
+    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, ACTIVE_PYTHONS_KEY) as key:
+        value, _ = winreg.QueryValueEx(key, '')
+    return value.split(';') if value else []
+
+
 @click.command()
 def main():
+    names = get_active_names()
+    if not names:
+        with contextlib.suppress(FileNotFoundError):
+            names = _compat_get_active_python_versions()
     versions = [
-        v for v in (
-            get_version_or_none(name)
-            for name in get_active_names()
-        ) if v is not None
+        v for v in (get_version_or_none(name) for name in names)
+        if v is not None
     ]
+    with contextlib.suppress(FileNotFoundError, OSError):
+        winreg.DeleteKey(winreg.HKEY_CURRENT_USER, ACTIVE_PYTHONS_KEY)
     activate(versions, allow_empty=True)
 
 
