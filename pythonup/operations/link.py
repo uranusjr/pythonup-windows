@@ -16,34 +16,40 @@ from .common import (
 
 
 class Overwrite(enum.Enum):
-
     yes = 'yes'
     no = 'no'
     smart = 'smart'
 
-    def should(self, source, target):
-        return (
-            self == self.yes or (
-                self == self.smart and
-                not filecmp.cmp(str(source), str(target))
-            )
-        )
 
-
-def publish_file(source, target, *, overwrite, quiet):
-    if target.exists():
-        if not overwrite.should(source, target):
-            return False
+def safe_publish(target, *, overwrite, comparer, writer, quiet):
+    should_write = (overwrite == Overwrite.yes or (
+        overwrite == Overwrite.smart and not (target.exists() and comparer())
+    ))
+    if not should_write:
+        return False
     if not quiet:
         click.echo('  {}'.format(target.name))
     try:
-        shutil.copy2(str(source), str(target))
+        writer()
     except OSError as e:
         click.echo('WARNING: Failed to copy {}.\n{}: {}'.format(
-            source.name, type(e).__name__, e,
+            target.name, type(e).__name__, e,
         ), err=True)
         return False
     return True
+
+
+def publish_file(source, target, *, overwrite, quiet):
+
+    def comp():
+        return filecmp.cmp(str(source), str(target))
+
+    def copy():
+        shutil.copy2(str(source), str(target))
+
+    return safe_publish(
+        target, quiet=quiet, overwrite=overwrite, comparer=comp, writer=copy,
+    )
 
 
 def publish_shim(source, target, *, relink, overwrite, quiet):
@@ -58,13 +64,6 @@ def publish_shim(source, target, *, relink, overwrite, quiet):
     The extra data are encoded with UTF-8, and written *backwards* into the
     executable. This makes it easier to read data out.
     """
-    success = publish_file(
-        configs.get_shim_path(), target,
-        overwrite=overwrite, quiet=quiet,
-    )
-    if not success:
-        return False
-
     cmds = [[str(source.resolve(strict=True))]]
     if relink:
         cmds.append([
@@ -74,10 +73,16 @@ def publish_shim(source, target, *, relink, overwrite, quiet):
     data = bytes(reversed(
         ('\n'.join('\0'.join(args) for args in cmds) + '\n\n').encode('utf-8')
     ))
-    with target.open('ab') as f:
-        f.write(data)
 
-    return True
+    def comp():
+        return target.read_bytes().endswith(data)
+
+    def write():
+        target.write_bytes(configs.get_shim_path().read_bytes() + data)
+
+    return safe_publish(
+        target, quiet=quiet, overwrite=overwrite, comparer=comp, writer=write,
+    )
 
 
 def safe_unlink(p):
