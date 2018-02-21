@@ -17,7 +17,8 @@ Renamed project from *SNAFU* to *PythonUp*. The entry command is also renamed ac
 * PythonUp now works system-wide Python installations, and can publish shims for them as well as `snafu install`-ed ones. It still only supports installing them in per-user mode, but other commands should mostly work.  
   **EXCEPTION**: Upgrading an MSI-based Python version (3.4 or earlier) is not supported.
 * Bugs are fixed to correctly detect various registry values.
-* The shims are updated to work independently from registry values. The active version registry values are removed in favour of a installation-local configuration file. This should not affect how the user interacts with PythonUp.
+* The shims are updated to work independently from registry values. The active version registry values are removed in favour of an installation-local configuration file. This should not affect how the user interacts with PythonUp.
+
 
 ### Installer Changes
 
