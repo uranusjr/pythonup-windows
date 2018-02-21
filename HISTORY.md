@@ -1,15 +1,27 @@
 ## Next (not released)
 
-### Behavioural Changes
-
-* The scripts PATH is moved ahead of the cmd. This provides potential for more flexible customisations, i.e. if multiple sources install the same executable (CPython and Anaconda, for example), one (CPython) can take precedence in cmd, but allow the user to override this by the `use` command.
-* SNAFU now works system-wide Python installations, and can publish shims for them as well as `snafu install`-ed ones. It still only supports installing them in per-user mode, but other commands should mostly work.  
-  **EXCEPTION**: Upgrading an MSI-based Python version (3.4 or earlier) is not supported.
+Nothing yet.
 
 
 ## Unstable
 
-Nothing yet.
+Renamed project from *SNAFU* to *PythonUp*. The entry command is also renamed accordingly. Installation target is now `%LOCALAPPDATA%\Programs\PythonUp`.
+
+### UI Changes
+
+* The main command is renamed to `pythonup`.
+
+### Behavioural Changes
+
+* The scripts PATH is moved ahead of the cmd. This provides potential for more flexible customisations, i.e. if multiple sources install the same executable (CPython and Anaconda, for example), one (CPython) can take precedence in cmd, but allow the user to override this by the `use` command.
+* PythonUp now works system-wide Python installations, and can publish shims for them as well as `snafu install`-ed ones. It still only supports installing them in per-user mode, but other commands should mostly work.  
+  **EXCEPTION**: Upgrading an MSI-based Python version (3.4 or earlier) is not supported.
+* Bugs are fixed to correctly detect various registry values.
+* The shims are updated to work independently from registry values. The active version registry values are removed in favour of a installation-local configuration file. This should not affect how the user interacts with PythonUp.
+
+### Installer Changes
+
+* The bundled Python (used to run PythonUp) is upgraded to 3.6.4.
 
 
 ## Version 2.0
