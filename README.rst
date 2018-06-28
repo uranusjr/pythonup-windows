@@ -16,9 +16,9 @@ development workflows. This is the Windows version.
 
 .. highlights::
 
-    macOS user? Check out `PythonUp for macOS`_.
+    macOS or Linux user? Check out `PythonUp for POSIX`_.
 
-.. _`PythonUp for macOS`: https://github.com/uranusjr/pythonup-macos
+.. _`PythonUp for POSIX`: https://github.com/uranusjr/pythonup-posix
 
 
 Distribution
