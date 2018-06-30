@@ -1,6 +1,6 @@
 {
     "type": "cpython",
-    "version_info": [3, 6, 4],
-    "url": "https://www.python.org/ftp/python/3.6.4/python-3.6.4.exe",
-    "md5_sum": "67e1a9bb336a5eca0efcd481c9f262a4"
+    "version_info": [3, 6, 6],
+    "url": "https://www.python.org/ftp/python/3.6.6/python-3.6.6.exe",
+    "md5_sum": "467161f1e894254096f9a69e2db3302c"
 }
