@@ -5,6 +5,11 @@ Nothing yet.
 
 ## Unstable
 
+Nothing yet.
+
+
+## Version 3.0
+
 Renamed project from *SNAFU* to *PythonUp*. The entry command is also renamed accordingly. Installation target is now `%LOCALAPPDATA%\Programs\PythonUp`.
 
 ### UI Changes
@@ -18,11 +23,13 @@ Renamed project from *SNAFU* to *PythonUp*. The entry command is also renamed ac
   **EXCEPTION**: Upgrading an MSI-based Python version (3.4 or earlier) is not supported.
 * Bugs are fixed to correctly detect various registry values.
 * The shims are updated to work independently from registry values. The active version registry values are removed in favour of an installation-local configuration file. This should not affect how the user interacts with PythonUp.
-
+* Upgrade Python 2.7 definition to 2.7.15.
+* Upgrade Python 3.6 definition to 3.6.6.
+* Add Python 3.7 definition (3.7.0).
 
 ### Installer Changes
 
-* The bundled Python (used to run PythonUp) is upgraded to 3.6.4.
+* The bundled Python (used to run PythonUp) is upgraded to 3.6.6.
 
 
 ## Version 2.0
