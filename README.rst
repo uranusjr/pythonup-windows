@@ -1,8 +1,8 @@
-===============================================
+=================================================
 PythonUp — The Python Runtime Manager (Windows)
-===============================================
+=================================================
 
-.. image:: https://ci.appveyor.com/api/projects/status/7fdfpbvu2roawg23?svg=true&branch=master
+.. image:: https://ci.appveyor.com/api/projects/status/7fdfpbvu2roawg23/branch/master?svg=true
     :target: https://ci.appveyor.com/project/uranusjr/pythonup-windows
     :alt: Build status
 
