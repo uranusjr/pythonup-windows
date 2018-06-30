@@ -8,6 +8,11 @@ Nothing yet.
 Nothing yet.
 
 
+## Version 3.0.1
+
+Fix `pythonup upgrade self`. The repository moved.
+
+
 ## Version 3.0
 
 Renamed project from *SNAFU* to *PythonUp*. The entry command is also renamed accordingly. Installation target is now `%LOCALAPPDATA%\Programs\PythonUp`.

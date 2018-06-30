@@ -94,7 +94,7 @@ class ReleaseUpToDate(ValueError):
 
 
 def get_releases():
-    response = get('/repos/uranusjr/pythonup/releases')
+    response = get('/repos/uranusjr/pythonup-windows/releases')
     return [Release.parse(data) for data in response.json()]
 
 
