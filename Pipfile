@@ -1,31 +1,27 @@
 [[source]]
-
-name = "pypi"
-url = "https://pypi.python.org/simple"
+name = 'pypi'
+url = 'https://pypi.python.org/simple'
 verify_ssl = true
 
-
 [requires]
-
-python_version = "3.6"
-
+python_version = '3.6'
 
 [packages]
-
-attrs = "*"
-click = "*"
-packaging = "*"
-requests = "*"
-
+attrs = '*'
+click = '*'
+packaging = '*'
+requests = '*'
 
 [dev-packages]
+flake8 = '*'
+invoke = '*'
+m2r = '*'
+pytest = '*'
+pytest-mock = '*'
+pytest-pythonpath = '*'
+restview = '*'
+sphinx = '*'
+sphinx-autobuild = '*'
 
-"flake8" = "*"
-invoke = "*"
-pytest = "*"
-pytest-pythonpath = "*"
-pytest-mock = "*"
-sphinx = "*"
-restview = "*"
-sphinx-autobuild = "*"
-"m2r" = "*"
+[scripts]
+pythonup = 'python -m pythonup'

@@ -27,8 +27,10 @@ class Installation:
         return self.scripts_dir.joinpath('pip.exe')
 
     def get_version_info(self):
+        # TODO: Remove stderr redirection after dropping older Pythons.
         output = subprocess.check_output(
-            [str(self.python), '--version'], encoding='ascii',
+            [str(self.python), '--version'],
+            stderr=subprocess.STDOUT, encoding='ascii',
         ).strip()
         match = re.match(r'^Python (\d+)\.(\d+)\.(\d+)$', output)
         return tuple(int(x) for x in match.groups())
