@@ -1,21 +1,21 @@
 {
-    "type": "cpython_msi",
-    "version_info": [2, 7, 15],
-    "amd64": {
-        "url": "https://www.python.org/ftp/python/2.7.15/python-2.7.15.amd64.msi",
-        "md5_sum": "0ffa44a86522f9a37b916b361eebc552",
-        "product_codes": {
-            "2.7.13": "{4A656C6C-D24A-473F-9747-3A8D00907A04}",
+	"type": "cpython_msi",
+	"version_info": [2, 7, 15],
+	"amd64": {
+		"url": "https://www.python.org/ftp/python/2.7.15/python-2.7.15.amd64.msi",
+		"md5_sum": "0ffa44a86522f9a37b916b361eebc552",
+		"product_codes": {
+			"2.7.13": "{4A656C6C-D24A-473F-9747-3A8D00907A04}",
 			"2.7.14": "{0398A685-FD8D-46B3-9816-C47319B0CF5F}",
 			"2.7.15": "{16CD92A4-0152-4CB7-8FD6-9788D3363617}"
-        }
-    },
-    "x86": {
-        "url": "https://www.python.org/ftp/python/2.7.15/python-2.7.15.msi",
-        "md5_sum": "023e49c9fba54914ebc05c4662a93ffe",
-        "product_codes": {
+		}
+	},
+	"x86": {
+		"url": "https://www.python.org/ftp/python/2.7.15/python-2.7.15.msi",
+		"md5_sum": "023e49c9fba54914ebc05c4662a93ffe",
+		"product_codes": {
 			"2.7.14": "{0398A685-FD8D-46B3-9816-C47319B0CF5E}",
 			"2.7.15": "{16CD92A4-0152-4CB7-8FD6-9788D3363616}"
-        }
-    }
+		}
+	}
 }
