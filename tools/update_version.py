@@ -151,6 +151,13 @@ VERSIONS_DIR = pathlib.Path(os.path.abspath(__file__)).parent.parent.joinpath(
 )
 
 
+def detect_newline(f):
+    newline = f.newlines
+    if isinstance(newline, str):
+        return newline
+    return '\n'
+
+
 def write_version_file(suffix, version_info, dataset):
     filename = '{0[0]}.{0[1]}{1}.json'.format(version_info, suffix)
     path = VERSIONS_DIR.joinpath(filename)
@@ -160,15 +167,19 @@ def write_version_file(suffix, version_info, dataset):
         'url': dataset['url'],
         'md5_sum': dataset['md5_sum'],
     }
-    with path.open() as f:
-        try:
-            curr = json.load(f)
-        except ValueError:
-            curr = {}
-        if curr == data:
-            print('Spec {} is up-to-date'.format(filename))
-            return
-    with path.open('w') as f:
+    if path.exists():
+        with path.open() as f:
+            try:
+                curr = json.load(f)
+            except ValueError:
+                curr = {}
+            if curr == data:
+                print('Spec {} is up-to-date'.format(filename))
+                return
+            newline = detect_newline(f)
+    else:
+        newline = '\n'
+    with path.open('w', newline=newline) as f:
         json.dump(data, f, indent='\t')
         f.write('\n')   # Trailing newline.
     print('Spec {} written'.format(filename))
