@@ -15,7 +15,7 @@ import requests
 import shims
 
 
-VERSION = '3.6.6'
+VERSION = '3.6.7'
 
 DOWNLOAD_PREFIX = 'https://www.python.org/ftp/python'
 
@@ -26,6 +26,7 @@ WINVERS = [
     '6.1',      # 7.
     '8-RT',     # 8.
     '8.1',      # 8.1.
+    # Windows 10 does not need patching.
 ]
 
 
