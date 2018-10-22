@@ -8,6 +8,18 @@ Nothing yet.
 Nothing yet.
 
 
+## Version 3.0.2
+
+### Behavioural Changes
+
+* Upgrade Python 3.6 definition to 3.6.7.
+* Upgrade Python 3.7 definition to 3.7.1.
+
+### Installer Changes
+
+* The bundled Python (used to run PythonUp) is upgraded to 3.6.7.
+
+
 ## Version 3.0.1
 
 Fix `pythonup upgrade self`. The repository moved.
