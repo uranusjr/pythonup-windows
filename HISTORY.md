@@ -1,6 +1,8 @@
 ## Next (not released)
 
-Nothing yet.
+### Installer Changes
+
+* The bundled Python (used to run PythonUp) is upgraded to 3.7.1.
 
 
 ## Unstable
