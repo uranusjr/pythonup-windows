@@ -68,7 +68,7 @@ def publish_shim(source, target, *, relink, overwrite, quiet):
     if relink:
         cmds.append([
             sys.executable, '-m', 'pythonup',
-            'link', '--all', '--overwrite=smart',
+            'link', '--all', '--overwrite=smart', '--no-user-friendly',
         ])
     data = bytes(reversed(
         ('\n'.join('\0'.join(args) for args in cmds) + '\n\n').encode('utf-8')
@@ -257,7 +257,7 @@ def use(ctx, versions, add):
     activate(versions, allow_empty=(not add))
 
 
-def link(ctx, command, link_all, overwrite):
+def link(ctx, command, link_all, overwrite, user_friendly):
     if not link_all and not command:    # This mistake is more common.
         click.echo(ctx.get_usage(), color=ctx.color)
         click.echo('\nError: Missing argument "command".', color=ctx.color)
@@ -268,12 +268,13 @@ def link(ctx, command, link_all, overwrite):
 
     active_names = get_active_names()
     if not active_names:
-        click.echo('Not using any versions.', err=True)
-        if not link_all:
-            click.echo(
-                'HINT: Use "pythonup use" to use a version first.', err=True,
+        if user_friendly:
+            message = (
+                'Not using any versions.\n'
+                'HINT: Use "pythonup use" to use a version first.'
             )
-            ctx.exit(1)
+            click.echo(message, err=True)
+        ctx.exit(1)
 
     if link_all:
         activate(

@@ -118,6 +118,11 @@ def list_(**kwargs):
     type=click.Choice(['yes', 'no', 'smart']), default='yes',
     help='What to do when the target exists.',
 )
+@click.option(
+    '--user-friendly/--no-user-friendly', 'user_friendly',
+    hidden=True, is_flag=True, default=True,
+    help='Hides non-essential user-friendly messages (internal usage).',
+)
 @click.pass_context
 def link(ctx, overwrite, **kwargs):
     from .operations.link import link, Overwrite

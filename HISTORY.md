@@ -1,6 +1,8 @@
 ## Next (not released)
 
-Nothing yet.
+## UI Changes
+
+* pip shims no longer displays “Not using any versions”.
 
 
 ## Unstable
