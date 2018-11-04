@@ -8,7 +8,7 @@ python_version = '3.6'
 
 [packages]
 attrs = '*'
-click = '*'
+click = '~=7.0'
 packaging = '*'
 requests = '*'
 
