@@ -84,7 +84,7 @@ def use(ctx, **kwargs):
 
 
 @cli.command(
-    help='Prints where the executable of Python version is.',
+    help='Print where the executable of Python version is.',
     short_help='Print python.exe location.',
 )
 @click.argument('version')

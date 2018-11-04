@@ -3,6 +3,7 @@
 ## UI Changes
 
 * pip shims no longer displays “Not using any versions”.
+* Fix a tense difference in command help messages.
 
 
 ## Unstable
