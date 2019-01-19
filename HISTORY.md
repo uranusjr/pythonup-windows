@@ -1,14 +1,23 @@
 ## Next (not released)
 
-## UI Changes
-
-* pip shims no longer displays “Not using any versions”.
-* Fix a tense difference in command help messages.
+Nothing yet.
 
 
 ## Unstable
 
 Nothing yet.
+
+
+## Verson 3.0.3
+
+### Behavioural Changes
+
+* Upgrade Python 3.6 definition to 3.6.8.
+
+## UI Changes
+
+* pip shims no longer displays “Not using any versions”.
+* Fix a tense difference in command help messages.
 
 
 ## Version 3.0.2
