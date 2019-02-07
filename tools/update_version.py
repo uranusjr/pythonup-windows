@@ -14,6 +14,11 @@ import urllib.parse
 import requests
 
 
+BLACKLISTED_IDS = {
+    287,    # 3.7.2 has broken build tool discovery. (bpo-35699)
+}
+
+
 def _get_version(s):
     match = re.match(r'^(\d+)\.(\d+)$', s)
     if not match:
@@ -128,6 +133,9 @@ def get_latest_release(version):
 
     for dataset in datasets:
         print('Checking {} ...'.format(dataset['name']), end=' ')
+        if dataset['id'] in BLACKLISTED_IDS:
+            print('Blacklisted')
+            continue
         installer_files = list(iter_installer_files(dataset))
         if not installer_files:
             print('No installers')
