@@ -1,6 +1,8 @@
 ## Next (not released)
 
-Nothing yet.
+### Behavioural Changes
+
+* Upgrade Python 3.7 definition to 3.7.3.
 
 
 ## Unstable
