@@ -2,12 +2,19 @@
 
 ### Behavioural Changes
 
-* Upgrade Python 3.7 definition to 3.7.3.
+Nothing yet.
 
 
 ## Unstable
 
 Nothing yet.
+
+
+## Version 3.0.4
+
+### Behavioural Changes
+
+* Upgrade Python 3.7 definition to 3.7.3.
 
 
 ## Verson 3.0.3
