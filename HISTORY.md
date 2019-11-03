@@ -10,6 +10,14 @@ Nothing yet.
 Nothing yet.
 
 
+## Version 3.0.5
+
+### Behavioural Changes
+
+* Add Python 3.8 definition (3.7.0).
+* Upgrade Python 3.7 definition to 3.7.5.
+
+
 ## Version 3.0.4
 
 ### Behavioural Changes
