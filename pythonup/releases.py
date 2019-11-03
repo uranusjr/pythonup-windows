@@ -46,8 +46,8 @@ class Parsable:
 @attr.s
 class ReleaseAsset(Parsable):
 
-    browser_download_url = attr.ib(convert=str)
-    size = attr.ib(convert=int)
+    browser_download_url = attr.ib(converter=str)
+    size = attr.ib(converter=int)
 
     def check_download(self, data):
         assert len(data) == self.size, \
@@ -70,11 +70,11 @@ ASSET_NAME_RE = re.compile(r'''
 @attr.s
 class Release(Parsable):
 
-    name = attr.ib(convert=str)
-    draft = attr.ib(convert=bool)
-    prerelease = attr.ib(convert=bool)
-    tag_name = attr.ib(convert=str)
-    assets = attr.ib(convert=parse_asset_list)
+    name = attr.ib(converter=str)
+    draft = attr.ib(converter=bool)
+    prerelease = attr.ib(converter=bool)
+    tag_name = attr.ib(converter=str)
+    assets = attr.ib(converter=parse_asset_list)
 
     def __str__(self):
         return self.name

@@ -12,7 +12,7 @@ import attr
 @attr.s
 class Installation:
 
-    path = attr.ib(convert=pathlib.Path)
+    path = attr.ib(converter=pathlib.Path)
 
     @property
     def python(self):

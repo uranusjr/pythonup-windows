@@ -43,7 +43,7 @@ class Version:
     name = attr.ib()
     url = attr.ib()
     md5_sum = attr.ib()
-    version_info = attr.ib(convert=tuple)
+    version_info = attr.ib(converter=tuple)
     product_codes = attr.ib(default=attr.Factory(dict))
     forced_32 = attr.ib(default=False)
 
