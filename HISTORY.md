@@ -10,6 +10,11 @@ Nothing yet.
 Nothing yet.
 
 
+## Version 3.0.6
+
+* Fix attrs compatibility.
+
+
 ## Version 3.0.5
 
 ### Behavioural Changes
