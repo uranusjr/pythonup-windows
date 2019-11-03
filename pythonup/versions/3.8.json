@@ -1,0 +1,10 @@
+{
+	"type": "cpython",
+	"version_info": [
+		3,
+		8,
+		0
+	],
+	"url": "https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe",
+	"md5_sum": "29ea87f24c32f5e924b7d63f8a08ee8d"
+}
