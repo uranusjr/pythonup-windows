@@ -92,15 +92,15 @@ pub fn run(exe: &PathBuf, args: &Vec<String>, with_own_args: bool)
         cmd.args(env::args().skip(1));
     }
 
-    let mut child = try!(cmd.spawn().map_err(|e| {
+    let mut child = cmd.spawn().map_err(|e| {
         format!("failed to spawn child: {}", e)
-    }));
+    })?;
 
-    unsafe { try!(setup_child(&mut child)) };
+    unsafe { setup_child(&mut child)? };
 
-    let result = try!(child.wait().map_err(|e| {
+    let result = child.wait().map_err(|e| {
         format!("failed to wait for child: {}", e)
-    }));
+    })?;
 
     // Doc seems to suggest this won't happen on Windows, but I'm not sure.
     // 137 is a common value seen with SIGKILL terminated programs.
