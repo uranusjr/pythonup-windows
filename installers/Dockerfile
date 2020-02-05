@@ -1,7 +1,7 @@
 # Dockerfile used to test the installer in a clean environment.
 # TODO: Write actual tests to run inside the container.
 
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+FROM mcr.microsoft.com/windows/servercore:ltsc2016
 
 ARG SETUP_EXE
 
