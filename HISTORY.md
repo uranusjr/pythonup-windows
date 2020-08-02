@@ -10,6 +10,12 @@ Nothing yet.
 Nothing yet.
 
 
+## Version 3.0.8
+
+* Upgrade Python 3.8 definition to 3.8.5.
+* Upgrade Python 3.7 definition to 3.7.8.
+
+
 ## Version 3.0.7
 
 * Upgrade Bleach to 3.1.1.
