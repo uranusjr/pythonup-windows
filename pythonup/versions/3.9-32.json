@@ -1,0 +1,10 @@
+{
+	"type": "cpython",
+	"version_info": [
+		3,
+		9,
+		0
+	],
+	"url": "https://www.python.org/ftp/python/3.9.0/python-3.9.0.exe",
+	"md5_sum": "4a2812db8ab9f2e522c96c7728cfcccb"
+}

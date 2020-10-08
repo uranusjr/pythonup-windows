@@ -1,6 +1,9 @@
 ## Next (not released)
 
 * Upgrade Bleach to 3.1.4.
+* Add Python 3.9 definition (3.9.0).
+* Upgrade Python 3.8 definition to 3.8.6.
+* Upgrade Python 3.7 definition to 3.7.9.
 
 
 ## Unstable
@@ -12,7 +15,6 @@ Nothing yet.
 
 * Upgrade Python 3.8 definition to 3.8.5.
 * Upgrade Python 3.7 definition to 3.7.8.
-* The bundled Python is upgraded to 3.8.5.
 
 
 ## Version 3.0.7
@@ -31,7 +33,7 @@ Nothing yet.
 
 ### Behavioural Changes
 
-* Add Python 3.8 definition (3.7.0).
+* Add Python 3.8 definition (3.8.0).
 * Upgrade Python 3.7 definition to 3.7.5.
 
 
