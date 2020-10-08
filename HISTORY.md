@@ -1,15 +1,20 @@
 ## Next (not released)
 
-* Upgrade Bleach to 3.1.4.
-* Add Python 3.9 definition (3.9.0).
-* Upgrade Python 3.8 definition to 3.8.6.
-* Upgrade Python 3.7 definition to 3.7.9.
-* The bundled Python (used to run PythonUp) is upgraded to 3.6.8.
+Nothing yet.
 
 
 ## Unstable
 
 Nothing yet.
+
+
+## Version 3.0.9
+
+* Upgrade Bleach to 3.1.4.
+* Add Python 3.9 definition (3.9.0).
+* Upgrade Python 3.8 definition to 3.8.6.
+* Upgrade Python 3.7 definition to 3.7.9.
+* The bundled Python (used to run PythonUp) is upgraded to 3.6.8.
 
 
 ## Version 3.0.8
