@@ -15,7 +15,7 @@ import requests
 import shims
 
 
-VERSION = '3.6.7'
+VERSION = '3.6.8'
 
 DOWNLOAD_PREFIX = 'https://www.python.org/ftp/python'
 
