@@ -1,0 +1,10 @@
+{
+	"type": "cpython",
+	"version_info": [
+		3,
+		10,
+		0
+	],
+	"url": "https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe",
+	"md5_sum": "c3917c08a7fe85db7203da6dcaa99a70"
+}

@@ -1,6 +1,9 @@
 ## Next (not released)
 
-Nothing yet.
+* Upgrade Bleach to 3.3.0.
+* Add Python 3.10 definition (3.10.0).
+* Upgrade Python 3.9 definition to 3.9.8.
+* Upgrade Python 3.8 definition to 3.8.10.
 
 
 ## Unstable
