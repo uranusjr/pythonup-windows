@@ -1,6 +1,7 @@
 import enum
 import hashlib
 import json
+import operator
 import os
 import pathlib
 import re
@@ -218,12 +219,13 @@ def get_version(name, *, force_32):
     return klass.load(name, data, force_32=force_32)
 
 
-VERSION_NAME_RE = re.compile(r'^\d+\.\d+(:?\-32)?$')
+VERSION_NAME_RE = re.compile(r'^\d+\.\d+(?:\-32)?$')
 
 
 def get_versions():
-    return [
+    versions = (
         get_version(p.stem, force_32=False)
         for p in VERSIONS_DIR_PATH.iterdir()
         if p.suffix == '.json' and VERSION_NAME_RE.match(p.stem)
-    ]
+    )
+    return sorted(versions, key=operator.attrgetter("version_info"))

@@ -14,7 +14,7 @@ version_names = [p.stem for p in version_paths]
 @pytest.mark.parametrize('path', version_paths, ids=version_names)
 def test_version_definitions(path):
     assert path.suffix == '.json', '{} has wrong extension'.format(path)
-    assert re.match(r'^\d\.\d+(?:\-32)?$', path.stem), \
+    assert pythonup.versions.VERSION_NAME_RE.match(path.stem), \
         '{} has invalid name'.format(path)
 
     with path.open() as f:

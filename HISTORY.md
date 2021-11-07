@@ -10,6 +10,7 @@ Nothing yet.
 
 ## Version 3.0.10
 
+* Fix `pythonup list` to put 3.10 after 3.9.
 * Upgrade Bleach to 3.3.0.
 * Add Python 3.10 definition (3.10.0).
 * Upgrade Python 3.9 definition to 3.9.8.
