@@ -117,11 +117,21 @@ def parse_release_id(dataset):
     return int(dataset['resource_uri'].rsplit('/', 2)[-2])
 
 
+def is_windows_installer(name):
+    # Used for 3.9.1 onwards.
+    if name.startswith('windows installer '):
+        return True
+    # Used for 3.9.0 and prior.
+    if name.endswith(' executable installer'):
+        return True
+    return False
+
+
 def iter_installer_files(release):
     url = _get_endpoint('downloads', 'release_file')
     params = {'release': release['id']}
     for dataset in Collection(url, params):
-        if dataset['name'].lower().endswith(' executable installer'):
+        if is_windows_installer(dataset['name'].lower()):
             yield dataset
 
 
@@ -193,12 +203,28 @@ def write_version_file(suffix, version_info, dataset):
     print('Spec {} written'.format(filename))
 
 
+def is_64_bit(name):
+    if '(64-bit)' in name:  # Used for 3.9.1 and later.
+        return True
+    if ' x86-64 ' in name:  # Used for 3.9.0 and prior.
+        return True
+    return False
+
+
+def is_32_bit(name):
+    if '(32-bit)' in name:  # Used for 3.9.1 and later.
+        return True
+    if ' x86 ' in name:  # Used for 3.9.0 and prior.
+        return True
+    return False
+
+
 def write_version_files(release, files):
     version_info = parse_version_info(release['name'])
     for dataset in files:
-        if ' x86-64 ' in dataset['name']:
+        if is_64_bit(dataset['name']):
             write_version_file('', version_info, dataset)
-        elif ' x86 ' in dataset['name']:
+        elif is_32_bit(dataset['name']):
             write_version_file('-32', version_info, dataset)
         else:
             print('Unrecognized file {}'.format(dataset['name']))
