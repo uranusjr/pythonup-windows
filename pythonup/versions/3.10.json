@@ -3,8 +3,8 @@
 	"version_info": [
 		3,
 		10,
-		0
+		1
 	],
-	"url": "https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe",
-	"md5_sum": "c3917c08a7fe85db7203da6dcaa99a70"
+	"url": "https://www.python.org/ftp/python/3.10.1/python-3.10.1-amd64.exe",
+	"md5_sum": "0e1c3a6ee3a05b5c4cd3d43fce8311a1"
 }

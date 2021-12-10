@@ -8,6 +8,12 @@ Nothing yet.
 Nothing yet.
 
 
+## Version 3.0.11
+
+* Upgrade Python 3.10 definition to 3.10.1.
+* Upgrade Python 3.9 definition to 3.9.9.
+
+
 ## Version 3.0.10
 
 * Fix `pythonup list` to put 3.10 after 3.9.
