@@ -40,7 +40,7 @@ Download and enter the project::
 
 Set up environment::
 
-    pipenv install --dev
+    pipenv sync --dev
 
 Run Tests
 ---------

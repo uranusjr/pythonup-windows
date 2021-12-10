@@ -32,7 +32,7 @@ install:
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - python -m pip install --disable-pip-version-check --upgrade pip
   - pip install --upgrade pipenv
-  - pipenv install --system --dev --skip-lock
+  - pipenv sync --system --dev
 
   - SET PATH
 
